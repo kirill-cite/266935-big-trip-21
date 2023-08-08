@@ -9,4 +9,9 @@ module.exports = {
     clean: true,
   },
   devtool: 'source-map',
+  plugins: [
+    new CopyPlugin({
+      patterns: [{ from: 'public' }],
+    })
+  ],
 };
