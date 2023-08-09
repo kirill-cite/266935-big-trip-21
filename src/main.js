@@ -5,11 +5,12 @@ import './views/filter-view.js';
  * @type {import('./views/brief-view').default}
  */
 
+const briefView = document.querySelector('brief-view');
+
 /**
  * @type {import('./views/filter-view').default}
  */
 
-const briefView = document.querySelector('brief-view');
 const filterView = document.querySelector('filter-view');
 
 briefView.render();
