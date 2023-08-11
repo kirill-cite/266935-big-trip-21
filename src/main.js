@@ -3,6 +3,15 @@ import './views/filter-view.js';
 import './views/add-button-view.js';
 import './views/sort-view.js';
 import './views/list-view.js';
+import ApplicationModel from './models/application-model.js';
+
+const applicationModel = new ApplicationModel();
+
+applicationModel.ready().then(() => {
+  console.log(applicationModel.getPoints());
+  console.log(applicationModel.getDestinations());
+  console.log(applicationModel.getOfferGroups());
+});
 
 /**
  * @type {import('./views/brief-view').default}

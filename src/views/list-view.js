@@ -27,7 +27,7 @@ class ListView extends View {
 
     this.replaceChildren(...views);
 
-   }
+  }
 }
 
 customElements.define('list-view', ListView);
