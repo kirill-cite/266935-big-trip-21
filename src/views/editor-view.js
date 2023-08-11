@@ -13,21 +13,21 @@ class EditorView extends View {
    */
   createHtml() {
     return html`
-    <form class="event event--edit" action="#" method="post">
-      <header class="event__header">
-        ${this.createTypeFieldHtml()}
-        ${this.createDestinationFieldHtml()}
-        ${this.createScheduleFieldHtml()}
-        ${this.createPriceFieldHtml()}
-        ${this.createSubmitButtonHtml()}
-        ${this.createResetButtonHtml()}
-        ${this.createCloseButtonHtml()}
-      </header>
-      <section class="event__details">
-        ${this.createOfferListFieldHtml()}
-        ${this.createDestinationHtml()}
-      </section>
-    </form>
+      <form class="event event--edit" action="#" method="post">
+        <header class="event__header">
+          ${this.createTypeFieldHtml()}
+          ${this.createDestinationFieldHtml()}
+          ${this.createScheduleFieldHtml()}
+          ${this.createPriceFieldHtml()}
+          ${this.createSubmitButtonHtml()}
+          ${this.createResetButtonHtml()}
+          ${this.createCloseButtonHtml()}
+        </header>
+        <section class="event__details">
+          ${this.createOfferListFieldHtml()}
+          ${this.createDestinationHtml()}
+        </section>
+      </form>
     `;
   }
 

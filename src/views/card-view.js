@@ -40,9 +40,9 @@ class CardView extends View {
    */
   createTypeIconHtml() {
     return html`
-    <div class="event__type">
-      <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
-    </div>
+      <div class="event__type">
+        <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
+      </div>
     `;
   }
 
@@ -60,14 +60,14 @@ class CardView extends View {
    */
   createScheduleHtml() {
     return html`
-    <div class="event__schedule">
-      <p class="event__time">
-        <time class="event__start-time" datetime="2019-03-18T10:30">10:30</time>
-        —
-        <time class="event__end-time" datetime="2019-03-18T11:00">11:00</time>
-      </p>
-      <p class="event__duration">30M</p>
-    </div>
+      <div class="event__schedule">
+        <p class="event__time">
+          <time class="event__start-time" datetime="2019-03-18T10:30">10:30</time>
+          —
+          <time class="event__end-time" datetime="2019-03-18T11:00">11:00</time>
+        </p>
+        <p class="event__duration">30M</p>
+      </div>
     `;
   }
 
@@ -76,9 +76,9 @@ class CardView extends View {
    */
   createPriceHtml() {
     return html`
-    <p class="event__price">
-      €&nbsp;<span class="event__price-value">20</span>
-    </p>
+      <p class="event__price">
+        €&nbsp;<span class="event__price-value">20</span>
+      </p>
     `;
   }
 
@@ -102,7 +102,7 @@ class CardView extends View {
    * @returns {string}
    */
   createFavoriteButtonHtml() {
-      return html`
+    return html`
       <button class="event__favorite-btn event__favorite-btn--active" type="button">
         <span class="visually-hidden">Add to favorite</span>
         <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
@@ -123,8 +123,6 @@ class CardView extends View {
     `;
   }
 }
-
-
 
 customElements.define('card-view', CardView);
 
