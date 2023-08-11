@@ -4,7 +4,7 @@ import destinations from '../data/destinations.json';
 import offerGroups from '../data/offers.json';
 import PointModel from './point-model.js';
 
-class ApplicationModel extends Model {
+class AppModel extends Model {
   constructor(){
     super();
 
@@ -61,4 +61,4 @@ class ApplicationModel extends Model {
 
 }
 
-export default ApplicationModel;
+export default AppModel;
