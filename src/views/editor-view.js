@@ -1,3 +1,5 @@
+import './editor-view.css';
+
 import View from './view.js';
 import {html} from '../utilities.js';
 
