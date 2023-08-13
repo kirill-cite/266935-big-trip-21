@@ -1,5 +1,5 @@
 import View from './view.js';
-import {html} from '../utilities.js';
+import {html, getYear, getMonthName, getMonthNumber, getDate} from '../utilities.js';
 
 /**@typedef {import('./list-view').ItemState} State
  *
@@ -35,8 +35,13 @@ class CardView extends View {
    * @returns {string}
    */
   createStartDateHtml() {
+    const {dateFrom} = this.state;
     return html`
-      <time class="event__date" datetime="2019-03-18">MAR 18</time>
+      <time
+        class="event__date"
+        datetime="${getYear(dateFrom)}-${getMonthNumber(dateFrom)}-${getDate(dateFrom)}">
+        ${getMonthName(dateFrom)} ${getDate(dateFrom)}
+      </time>
     `;
   }
 
@@ -44,9 +49,17 @@ class CardView extends View {
    * @returns {string}
    */
   createTypeIconHtml() {
+
+    const {types} = this.state;
+
     return html`
       <div class="event__type">
-        <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
+        <img
+          class="event__type-icon"
+          width="42"
+          height="42"
+          src="img/icons/${types.find((type) => type.isSelected).value}.png"
+          alt="Event type icon">
       </div>
     `;
   }
@@ -55,8 +68,14 @@ class CardView extends View {
    * @returns {string}
    */
   createDestinationHtml() {
+
+    const {types, destinations} = this.state;
     return html`
-      <h3 class="event__title">Taxi Amsterdam</h3>
+      <h3
+        class="event__title">
+        ${types.find((type) => type.isSelected).value}
+        ${destinations.find((destination) => destination.isSelected).name}
+      </h3>
     `;
   }
 
