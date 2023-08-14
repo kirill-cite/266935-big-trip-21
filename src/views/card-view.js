@@ -1,9 +1,10 @@
 import View from './view.js';
 import {html, getYear, getMonthName, getMonthNumber, getDate, getHoursString, getMinutesString, getDuration} from '../utilities.js';
 
-/**@typedef {import('./list-view').ItemState} State
+/**
+ *@typedef {import('./list-view').ItemState} State
  *
- * extends {View<State>}
+ *@extends {View<State>}
  */
 
 class CardView extends View {
