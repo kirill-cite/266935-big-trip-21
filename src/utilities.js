@@ -57,4 +57,54 @@ function getDate(date){
   return dateObj.getDate().toString();
 }
 
-export {html, getYear, getMonthName, getMonthNumber, getDate};
+/**
+ * @param {string} date
+ * @returns {string}
+ */
+function getHoursString(date){
+  const dateObj = new Date(date);
+  return dateObj.getUTCHours().toString().padStart(2,'0');
+}
+
+/**
+ * @param {string} date
+ * @returns {string}
+ */
+function getMinutesString(date){
+  const dateObj = new Date(date);
+  return dateObj.getMinutes().toString().padStart(2,'0');
+}
+
+/**
+ * @param {string} dateFrom
+ * @param {string} dateTo
+ * @returns {string}
+ */
+function getDuration(dateFrom, dateTo){
+  let duration = '';
+  const dateFromObj = new Date(dateFrom);
+  const dateToObj = new Date(dateTo);
+  let remainTime = dateToObj.getTime() - dateFromObj.getTime();
+
+  const days = Math.floor(remainTime / (1000 * 60 * 60 * 24));
+  if (days > 0){
+    duration += `${days}D `;
+    remainTime = remainTime - days * (1000 * 60 * 60 * 24);
+  }
+
+  const hours = Math.floor(remainTime / (1000 * 60 * 60));
+  if (hours > 0){
+    duration += `${hours}H `;
+    remainTime = remainTime - hours * (1000 * 60 * 60);
+  }
+
+  const minutes = Math.floor(remainTime / (1000 * 60));
+  if (minutes > 0){
+    duration += `${minutes}M`;
+  }
+
+  return duration;
+}
+
+
+export {html, getYear, getMonthName, getMonthNumber, getDate, getHoursString, getMinutesString, getDuration};
