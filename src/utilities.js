@@ -1,4 +1,45 @@
 import dayjs from 'dayjs';
+import durationPlugin from 'dayjs/plugin/duration.js';
+
+dayjs.extend(durationPlugin);
+
+/**
+ * @param {dayjs.ConfigType} value
+ * @returns {string}
+ */
+function formatDate(value) {
+  return dayjs(value).format('MMM D');
+}
+
+/**
+ * @param {dayjs.ConfigType} value
+ * @returns {string}
+ */
+function formatTime(value){
+  return dayjs(value).format('HH:mm');
+}
+
+/**
+ * @param {dayjs.ConfigType} valueFrom
+ * @param {dayjs.ConfigType} valueTo
+ * @returns {string}
+ */
+function formatDuration(valueFrom, valueTo){
+  const ms = dayjs(valueTo).diff(valueFrom);
+  const duration = dayjs.duration(ms);
+
+  if (duration.days()){
+    return duration.format('DD[d] HH[h] mm[m]');
+  }
+
+  if (duration.hours()){
+    return duration.format('HH[h] mm[m]');
+  }
+
+  return duration.format('mm[m]');
+}
+
+console.log(formatDuration('2023-03-18T13:00Z', '2023-03-18T14:00Z'));
 
 /**
  * @param {TemplateStringsArray} strings
@@ -81,4 +122,8 @@ function getDuration(dateFrom, dateTo) {
   return `${String(minutes).padStart(2, '0')}M`;
 }
 
-export {html, getYear, getMonth, getDay, getMonthName, getTime, getDuration};
+export {html,
+  formatDate,
+  formatTime,
+  formatDuration,
+  getYear, getMonth, getDay, getMonthName, getTime, getDuration};
