@@ -94,13 +94,17 @@ function getDuration(dateFrom, dateTo){
 
   const hours = Math.floor(remainTime / (1000 * 60 * 60));
   if (hours > 0){
-    duration += `${hours}H `;
+    duration += `${hours.toString().padStart(2, '0')}H `;
     remainTime = remainTime - hours * (1000 * 60 * 60);
+  }else if (duration.includes('D')){
+    duration += '00H ';
   }
 
   const minutes = Math.floor(remainTime / (1000 * 60));
   if (minutes > 0){
-    duration += `${minutes}M`;
+    duration += `${minutes.toString().padStart(2, '0')}M`;
+  }else{
+    duration += '00M';
   }
 
   return duration;
