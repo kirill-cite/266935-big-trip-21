@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 
 /**
  * @param {TemplateStringsArray} strings
@@ -25,8 +26,23 @@ function html(strings, ...values) {
  * @returns {string}
  */
 function getYear(date){
-  const dateObj = new Date(date);
-  return dateObj.getFullYear().toString();
+  return dayjs(date).format('YYYY');
+}
+
+/**
+ * @param {string} date
+ * @returns {string}
+ */
+function getMonth(date){
+  return dayjs(date).format('MM');
+}
+
+/**
+ * @param {string} date
+ * @returns {string}
+ */
+function getDay(date){
+  return dayjs(date).format('DD');
 }
 
 /**
@@ -34,45 +50,15 @@ function getYear(date){
  * @returns {string}
  */
 function getMonthName(date){
-  const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  const dateObj = new Date(date);
-  return months[dateObj.getMonth()];
+  return dayjs(date).format('MMM');
 }
 
 /**
  * @param {string} date
  * @returns {string}
  */
-function getMonthNumber(date){
-  const dateObj = new Date(date);
-  return (dateObj.getMonth() + 1).toString();
-}
-
-/**
- * @param {string} date
- * @returns {string}
- */
-function getDate(date){
-  const dateObj = new Date(date);
-  return dateObj.getDate().toString();
-}
-
-/**
- * @param {string} date
- * @returns {string}
- */
-function getHoursString(date){
-  const dateObj = new Date(date);
-  return dateObj.getUTCHours().toString().padStart(2,'0');
-}
-
-/**
- * @param {string} date
- * @returns {string}
- */
-function getMinutesString(date){
-  const dateObj = new Date(date);
-  return dateObj.getMinutes().toString().padStart(2,'0');
+function getTime(date){
+  return dayjs(date).format('HH:mm');
 }
 
 /**
@@ -80,35 +66,19 @@ function getMinutesString(date){
  * @param {string} dateTo
  * @returns {string}
  */
-function getDuration(dateFrom, dateTo){
-  let duration = '';
-  const dateFromObj = new Date(dateFrom);
-  const dateToObj = new Date(dateTo);
-  let remainTime = dateToObj.getTime() - dateFromObj.getTime();
+function getDuration(dateFrom, dateTo) {
+  const totalMinutes = dayjs(dateTo).diff(dayjs(dateFrom), 'minute');
+  const days = Math.floor(totalMinutes / (24 * 60));
+  const hours = Math.floor((totalMinutes - days * 24 * 60) / 60);
+  const minutes = totalMinutes % 60;
 
-  const days = Math.floor(remainTime / (1000 * 60 * 60 * 24));
-  if (days > 0){
-    duration += `${days}D `;
-    remainTime = remainTime - days * (1000 * 60 * 60 * 24);
+  if (days) {
+    return `${String(days).padStart(2, '0')}D ${String(hours).padStart(2, '0')}H ${String(minutes).padStart(2, '0')}M`;
   }
-
-  const hours = Math.floor(remainTime / (1000 * 60 * 60));
-  if (hours > 0){
-    duration += `${hours.toString().padStart(2, '0')}H `;
-    remainTime = remainTime - hours * (1000 * 60 * 60);
-  }else if (duration.includes('D')){
-    duration += '00H ';
+  if (hours) {
+    return `${String(hours).padStart(2, '0')}H ${String(minutes).padStart(2, '0')}M`;
   }
-
-  const minutes = Math.floor(remainTime / (1000 * 60));
-  if (minutes > 0){
-    duration += `${minutes.toString().padStart(2, '0')}M`;
-  }else{
-    duration += '00M';
-  }
-
-  return duration;
+  return `${String(minutes).padStart(2, '0')}M`;
 }
 
-
-export {html, getYear, getMonthName, getMonthNumber, getDate, getHoursString, getMinutesString, getDuration};
+export {html, getYear, getMonth, getDay, getMonthName, getTime, getDuration};

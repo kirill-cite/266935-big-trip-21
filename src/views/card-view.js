@@ -1,5 +1,5 @@
 import View from './view.js';
-import {html, getYear, getMonthName, getMonthNumber, getDate, getHoursString, getMinutesString, getDuration} from '../utilities.js';
+import {html, getYear, getMonth, getDay, getMonthName, getTime, getDuration} from '../utilities.js';
 
 /**
  *@typedef {import('./list-view').ItemState} State
@@ -40,8 +40,8 @@ class CardView extends View {
     return html`
       <time
         class="event__date"
-        datetime="${getYear(dateFrom)}-${getMonthNumber(dateFrom)}-${getDate(dateFrom)}">
-        ${getMonthName(dateFrom)} ${getDate(dateFrom)}
+        datetime="${getYear(dateFrom)}-${getMonth(dateFrom)}-${getDay(dateFrom)}">
+        ${getMonthName(dateFrom)} ${getDay(dateFrom)}
       </time>
     `;
   }
@@ -94,13 +94,13 @@ class CardView extends View {
           <time
             class="event__start-time"
             datetime="${dateFrom}">
-            ${getHoursString(dateFrom)}:${getMinutesString(dateFrom)}
+            ${getTime(dateFrom)}
           </time>
           —
           <time
             class="event__end-time"
             datetime="${dateTo}">
-            ${getHoursString(dateTo)}:${getMinutesString(dateTo)}
+            ${getTime(dateTo)}
           </time>
         </p>
         <p
