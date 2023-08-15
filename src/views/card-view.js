@@ -1,5 +1,5 @@
 import View from './view.js';
-import {html, getYear, getMonth, getDay, getMonthName, getTime, getDuration} from '../utilities.js';
+import {html, formatDate, formatTime, formatDuration, formatNumber} from '../utilities.js';
 
 /**
  *@typedef {import('./list-view').ItemState} State
@@ -40,8 +40,8 @@ class CardView extends View {
     return html`
       <time
         class="event__date"
-        datetime="${getYear(dateFrom)}-${getMonth(dateFrom)}-${getDay(dateFrom)}">
-        ${getMonthName(dateFrom)} ${getDay(dateFrom)}
+        datetime="${dateFrom}">
+        ${formatDate(dateFrom)}
       </time>
     `;
   }
@@ -71,12 +71,14 @@ class CardView extends View {
   createDestinationHtml() {
 
     const {types, destinations} = this.state;
+    const selectedType = types.find((type) => type.isSelected);
+    const selectedDestination = destinations.find((destination) => destination.isSelected);
 
     return html`
       <h3
         class="event__title">
-        ${types.find((type) => type.isSelected).value}
-        ${destinations.find((destination) => destination.isSelected).name}
+        ${selectedType.value}
+        ${selectedDestination.name}
       </h3>
     `;
   }
@@ -94,18 +96,18 @@ class CardView extends View {
           <time
             class="event__start-time"
             datetime="${dateFrom}">
-            ${getTime(dateFrom)}
+            ${formatTime(dateFrom)}
           </time>
           —
           <time
             class="event__end-time"
             datetime="${dateTo}">
-            ${getTime(dateTo)}
+            ${formatTime(dateTo)}
           </time>
         </p>
         <p
           class="event__duration">
-          ${getDuration(dateFrom, dateTo)}
+          ${formatDuration(dateFrom, dateTo)}
         </p>
       </div>
     `;
@@ -122,7 +124,7 @@ class CardView extends View {
       <p class="event__price">
         €&nbsp;<span
         class="event__price-value">
-        ${basePrice}
+        ${formatNumber(basePrice)}
         </span>
       </p>
     `;
@@ -134,24 +136,29 @@ class CardView extends View {
   createOfferListHtml() {
 
     const {offers} = this.state;
+    const selectedOffers = offers.filter((offer) => offer.isSelected);
+
+    if (!selectedOffers.length){
+      return '';
+    }
 
     return html`
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
 
-        ${offers.map((offer) => offer.isSelected ? html`
+        ${selectedOffers.map((selectedOffer) => html`
           <li class="event__offer">
             <span
             class="event__offer-title">
-            ${offer.title}
+            ${selectedOffer.title}
             </span>
             +€&nbsp;
             <span
             class="event__offer-price">
-            ${offer.price}
+            ${selectedOffer.price}
             </span>
           </li>
-        ` : '')}
+        `)}
 
       </ul>
     `;
@@ -166,7 +173,7 @@ class CardView extends View {
 
     return html`
       <button
-        class="event__favorite-btn event__favorite-btn${isFavorite ? '--active' : ''}"
+        class="event__favorite-btn${isFavorite ? ' event__favorite-btn--active' : ''}"
         type="button">
           <span class="visually-hidden">Add to favorite</span>
           <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
