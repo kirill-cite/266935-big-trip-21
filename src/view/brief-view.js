@@ -1,7 +1,7 @@
 import {createElement} from '../render.js';
 
 function createBriefViewTemplate() {
-  return `<section
+  return /*html*/`<section
             class="trip-main__trip-info  trip-info">
             <div class="trip-info__main">
               <h1
