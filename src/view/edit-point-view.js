@@ -158,7 +158,7 @@ function createEditPointViewTemplate() {
           </li>`;
 }
 
-export default class BriefView {
+export default class PointEditViewView {
   getTemplate() {
     return createEditPointViewTemplate();
   }
