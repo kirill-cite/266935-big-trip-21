@@ -7,17 +7,20 @@ import {render} from '../render.js';
 export default class ListPresenter {
   pointListComponent = new PointListView();
 
-  constructor({listContainer}) {
+  constructor({listContainer, pointsModel}) {
     this.listContainer = listContainer;
+    this.pointsModel = pointsModel;
   }
 
   init() {
+    this.listPoints = [...this.pointsModel.getElement()];
+
     render(new SortView(), this.listContainer);
     render(this.pointListComponent, this.listContainer);
     render(new PointEditView(), this.pointListComponent.getElement());
 
-    for (let i = 0; i < 3; i++) {
-      render(new PointView(), this.pointListComponent.getElement());
+    for (let i = 0; i < this.listPoints.length; i++) {
+      render(new PointView({point : this.listPoints[i]}), this.pointListComponent.getElement());
     }
 
   }
