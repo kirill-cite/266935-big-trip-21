@@ -13,7 +13,7 @@ export default class ListPresenter {
   }
 
   init() {
-    this.listPoints = [...this.pointsModel.getElement()];
+    this.listPoints = [...this.pointsModel.getPoints()];
 
     render(new SortView(), this.listContainer);
     render(this.pointListComponent, this.listContainer);
