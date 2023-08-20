@@ -1,11 +1,15 @@
 import {createElement} from '../render.js';
+import { formatDate } from '../utils.js';
 
-function createPointViewTemplate() {
+function createPointViewTemplate(point) {
+
+  const {id, base_price, date_from, date_to, destination, is_favorite, offers, type} = point;
+
   return /*html*/`<li class="trip-events__item">
             <div class="event">
-              <time class="event__date" datetime="2019-03-18">MAR 18</time>
+              <time class="event__date" datetime="2019-03-18">${formatDate(date_from)}</time>
               <div class="event__type">
-                <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
+                <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
               </div>
               <h3 class="event__title">Taxi Amsterdam</h3>
               <div class="event__schedule">
@@ -40,9 +44,13 @@ function createPointViewTemplate() {
           </li>`;
 }
 
-export default class BriefView {
+export default class PointView {
+  constructor({point}){
+    this.point = point;
+  }
+
   getTemplate() {
-    return createPointViewTemplate();
+    return createPointViewTemplate(this.point);
   }
 
   getElement() {
