@@ -1,5 +1,3 @@
-import { getRandomArrayElement } from '../utils';
-
 const mockOffers = [
   {
     'type': 'taxi',
@@ -207,8 +205,8 @@ const mockOffers = [
   }
 ];
 
-function getOffers() {
+function getAllOffers() {
   return mockOffers;
 }
 
-export {getOffers};
+export {getAllOffers};
