@@ -1,9 +1,9 @@
 import {createElement} from '../render.js';
-import { formatDate, formatTime } from '../utils.js';
+import { formatDate, formatTime, formatDuration } from '../utils.js';
 
-function createPointViewTemplate(point) {
+function createPointViewTemplate(point, destinations, offers) {
 
-  const {id, base_price, date_from, date_to, destination, is_favorite, offers, type} = point;
+  const {id, base_price, date_from, date_to, destination_id, is_favorite, offers_id, type} = point;
 
   return /*html*/`<li class="trip-events__item">
             <div class="event">
@@ -11,7 +11,8 @@ function createPointViewTemplate(point) {
               <div class="event__type">
                 <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
               </div>
-              <h3 class="event__title">${type} Amsterdam</h3>
+              <h3 class="event__title">${type}
+              ${getDestination(destination_id, destinations)}</h3>
               <div class="event__schedule">
                 <p class="event__time">
                   <time class="event__start-time"
@@ -20,18 +21,14 @@ function createPointViewTemplate(point) {
                   <time class="event__end-time"
                   datetime=${date_to}">${formatTime(date_to)}</time>
                 </p>
-                <p class="event__duration">30M</p>
+                <p class="event__duration">${formatDuration(date_from, date_to)}</p>
               </div>
               <p class="event__price">
-                €&nbsp;<span class="event__price-value">20</span>
+                €&nbsp;<span class="event__price-value">${base_price}</span>
               </p>
               <h4 class="visually-hidden">Offers:</h4>
               <ul class="event__selected-offers">
-                <li class="event__offer">
-                  <span class="event__offer-title">Order Uber</span>
-                  +€&nbsp;
-                  <span class="event__offer-price">20</span>
-                </li>
+                ${getOffersList(type, offers_id, offers)}
               </ul>
               <button class="event__favorite-btn event__favorite-btn--active" type="button">
                 <span class="visually-hidden">Add to favorite</span>
@@ -46,13 +43,31 @@ function createPointViewTemplate(point) {
           </li>`;
 }
 
+function getDestination(destination_id, destinations){
+  return destinations.find((destination) => destination_id === destination.id).name;
+}
+
+function getOffersList(pointType, offers_id, offers){
+  const offerGroup = offers.find((offer) => pointType === offer.type);
+  const selectedOffers =
+  return 'some offer';
+  /*`
+  <li class="event__offer">
+                    <span class="event__offer-title">Order Uber</span>
+                    +€&nbsp;
+                    <span class="event__offer-price">20</span>
+                  </li>`*/
+}
+
 export default class PointView {
-  constructor({point}){
+  constructor({point, destinations, offers}){
     this.point = point;
+    this.destinations = destinations;
+    this.offers = offers;
   }
 
   getTemplate() {
-    return createPointViewTemplate(this.point);
+    return createPointViewTemplate(this.point, this.destinations, this.offers);
   }
 
   getElement() {

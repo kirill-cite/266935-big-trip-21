@@ -7,9 +7,9 @@ const mockPoints = [
     'base_price': 4530,
     'date_from': '2023-08-13T21:00:00.739Z',
     'date_to': '2023-08-20T21:00:00.739Z',
-    'destination': '6ec1a8cc-0f63-4d44-8c55-134b409e8f22',
+    'destination_id': '6ec1a8cc-0f63-4d44-8c55-134b409e8f22',
     'is_favorite': true,
-    'offers': [
+    'offers_id': [
       '7097ad4e-43ab-4789-8f78-2db23712a70a'
     ],
     'type': 'drive'
@@ -19,9 +19,9 @@ const mockPoints = [
     'base_price': 2841,
     'date_from': '2023-08-08T21:00:00.739Z',
     'date_to': '2023-08-19T11:00:00.739Z',
-    'destination': 'e498faf6-f5b3-47a3-94ac-d8b27a5947c6',
+    'destination_id': 'e498faf6-f5b3-47a3-94ac-d8b27a5947c6',
     'is_favorite': true,
-    'offers': [],
+    'offers_id': [],
     'type': 'check-in'
   },
   {
@@ -29,9 +29,9 @@ const mockPoints = [
     'base_price': 5955,
     'date_from': '2023-08-12T21:00:00.739Z',
     'date_to': '2023-08-19T13:00:00.739Z',
-    'destination': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
+    'destination_id': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
     'is_favorite': false,
-    'offers': [],
+    'offers_id': [],
     'type': 'sightseeing'
   },
   {
@@ -39,9 +39,9 @@ const mockPoints = [
     'base_price': 5235,
     'date_from': '2023-08-12T21:00:00.739Z',
     'date_to': '2023-08-19T16:00:00.739Z',
-    'destination': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
+    'destination_id': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
     'is_favorite': true,
-    'offers': [
+    'offers_id': [
       'c101773c-fdd3-4477-ad7b-4aee876a86a7',
       '07d4135f-7198-4092-9eb7-486c3b964347',
       '70a6e1cf-c0ec-4abc-9ced-ad3b6fa008f7',
@@ -54,9 +54,9 @@ const mockPoints = [
     'base_price': 6060,
     'date_from': '2023-08-07T21:00:00.739Z',
     'date_to': '2023-08-19T04:00:00.739Z',
-    'destination': 'ffc2a911-11ae-4a3f-8e95-1f57eaaeb4eb',
+    'destination_id': 'ffc2a911-11ae-4a3f-8e95-1f57eaaeb4eb',
     'is_favorite': true,
-    'offers': [
+    'offers_id': [
       'e267d32e-6887-4cdd-bdb9-f32c112675d5',
       'c101773c-fdd3-4477-ad7b-4aee876a86a7',
       '07d4135f-7198-4092-9eb7-486c3b964347',
@@ -70,9 +70,9 @@ const mockPoints = [
     'base_price': 1707,
     'date_from': '2023-08-15T21:00:00.739Z',
     'date_to': '2023-08-19T10:00:00.739Z',
-    'destination': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
+    'destination_id': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
     'is_favorite': true,
-    'offers': [],
+    'offers_id': [],
     'type': 'drive'
   },
   {
@@ -80,9 +80,9 @@ const mockPoints = [
     'base_price': 5989,
     'date_from': '2023-08-14T21:00:00.739Z',
     'date_to': '2023-08-20T05:00:00.739Z',
-    'destination': 'c76f204e-e81a-43d8-af41-39523197812a',
+    'destination_id': 'c76f204e-e81a-43d8-af41-39523197812a',
     'is_favorite': true,
-    'offers': [],
+    'offers_id': [],
     'type': 'sightseeing'
   },
   {
@@ -90,9 +90,9 @@ const mockPoints = [
     'base_price': 9632,
     'date_from': '2023-08-08T21:00:00.739Z',
     'date_to': '2023-08-20T02:00:00.739Z',
-    'destination': 'c3197bdf-b1ea-4012-9cc1-7d964f748f4f',
+    'destination_id': 'c3197bdf-b1ea-4012-9cc1-7d964f748f4f',
     'is_favorite': false,
-    'offers': [
+    'offers_id': [
       'c8a1d6c9-1477-44fe-aa4f-5eaa79322f07',
       '599d56be-ff36-4104-9bf4-9431adc69c1a',
       '331b41eb-d3ad-4239-ba2b-6222f2362674'
@@ -104,9 +104,9 @@ const mockPoints = [
     'base_price': 1056,
     'date_from': '2023-08-14T21:00:00.739Z',
     'date_to': '2023-08-20T18:00:00.739Z',
-    'destination': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
+    'destination_id': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
     'is_favorite': true,
-    'offers': [
+    'offers_id': [
       'c101773c-fdd3-4477-ad7b-4aee876a86a7',
       '07d4135f-7198-4092-9eb7-486c3b964347',
       '70a6e1cf-c0ec-4abc-9ced-ad3b6fa008f7',
@@ -119,9 +119,9 @@ const mockPoints = [
     'base_price': 3906,
     'date_from': '2023-08-15T21:00:00.739Z',
     'date_to': '2023-08-19T04:00:00.740Z',
-    'destination': 'e498faf6-f5b3-47a3-94ac-d8b27a5947c6',
+    'destination_id': 'e498faf6-f5b3-47a3-94ac-d8b27a5947c6',
     'is_favorite': false,
-    'offers': [
+    'offers_id': [
       '599d56be-ff36-4104-9bf4-9431adc69c1a',
       '331b41eb-d3ad-4239-ba2b-6222f2362674'
     ],
@@ -132,9 +132,9 @@ const mockPoints = [
     'base_price': 9636,
     'date_from': '2023-08-12T21:00:00.740Z',
     'date_to': '2023-08-20T07:00:00.740Z',
-    'destination': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
+    'destination_id': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
     'is_favorite': false,
-    'offers': [
+    'offers_id': [
       '6de67806-7158-4e9f-bd45-609f2691d9bc'
     ],
     'type': 'restaurant'
@@ -144,9 +144,9 @@ const mockPoints = [
     'base_price': 1200,
     'date_from': '2023-08-10T21:00:00.740Z',
     'date_to': '2023-08-19T07:00:00.740Z',
-    'destination': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
+    'destination_id': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
     'is_favorite': false,
-    'offers': [],
+    'offers_id': [],
     'type': 'sightseeing'
   },
   {
@@ -154,9 +154,9 @@ const mockPoints = [
     'base_price': 9987,
     'date_from': '2023-08-10T21:00:00.740Z',
     'date_to': '2023-08-19T09:00:00.740Z',
-    'destination': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
+    'destination_id': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
     'is_favorite': false,
-    'offers': [
+    'offers_id': [
       '79581c8a-8d39-4200-9c09-ae99e2f48e57'
     ],
     'type': 'flight'
@@ -166,9 +166,9 @@ const mockPoints = [
     'base_price': 5087,
     'date_from': '2023-08-13T21:00:00.740Z',
     'date_to': '2023-08-20T00:00:00.740Z',
-    'destination': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
+    'destination_id': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
     'is_favorite': false,
-    'offers': [
+    'offers_id': [
       'e267d32e-6887-4cdd-bdb9-f32c112675d5',
       'c101773c-fdd3-4477-ad7b-4aee876a86a7',
       '07d4135f-7198-4092-9eb7-486c3b964347',
@@ -182,9 +182,9 @@ const mockPoints = [
     'base_price': 7705,
     'date_from': '2023-08-15T21:00:00.740Z',
     'date_to': '2023-08-19T18:00:00.740Z',
-    'destination': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
+    'destination_id': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
     'is_favorite': false,
-    'offers': [
+    'offers_id': [
       '8839de17-df24-43da-86a4-8e5d1fa6c02c',
       'b6d170be-7c5f-4847-9cd1-9ae4ec919129'
     ],
@@ -195,9 +195,9 @@ const mockPoints = [
     'base_price': 4000,
     'date_from': '2023-08-12T21:00:00.740Z',
     'date_to': '2023-08-19T05:00:00.740Z',
-    'destination': 'c76f204e-e81a-43d8-af41-39523197812a',
+    'destination_id': 'c76f204e-e81a-43d8-af41-39523197812a',
     'is_favorite': false,
-    'offers': [
+    'offers_id': [
       'e267d32e-6887-4cdd-bdb9-f32c112675d5',
       'c101773c-fdd3-4477-ad7b-4aee876a86a7',
       '07d4135f-7198-4092-9eb7-486c3b964347',
@@ -211,9 +211,9 @@ const mockPoints = [
     'base_price': 6312,
     'date_from': '2023-08-07T21:00:00.740Z',
     'date_to': '2023-08-19T21:00:00.740Z',
-    'destination': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
+    'destination_id': 'ecf76770-ef8c-4e0f-8577-31d97e65afef',
     'is_favorite': false,
-    'offers': [],
+    'offers_id': [],
     'type': 'drive'
   },
   {
@@ -221,9 +221,9 @@ const mockPoints = [
     'base_price': 3595,
     'date_from': '2023-08-10T21:00:00.740Z',
     'date_to': '2023-08-20T10:00:00.740Z',
-    'destination': 'ffc2a911-11ae-4a3f-8e95-1f57eaaeb4eb',
+    'destination_id': 'ffc2a911-11ae-4a3f-8e95-1f57eaaeb4eb',
     'is_favorite': true,
-    'offers': [
+    'offers_id': [
       '3bfbc962-fbbe-4ab5-8aca-3f7589a72ed4',
       '6de67806-7158-4e9f-bd45-609f2691d9bc'
     ],
@@ -234,9 +234,9 @@ const mockPoints = [
     'base_price': 5664,
     'date_from': '2023-08-15T21:00:00.740Z',
     'date_to': '2023-08-20T11:00:00.740Z',
-    'destination': 'e498faf6-f5b3-47a3-94ac-d8b27a5947c6',
+    'destination_id': 'e498faf6-f5b3-47a3-94ac-d8b27a5947c6',
     'is_favorite': false,
-    'offers': [],
+    'offers_id': [],
     'type': 'flight'
   },
   {
@@ -244,9 +244,9 @@ const mockPoints = [
     'base_price': 386,
     'date_from': '2023-08-14T21:00:00.740Z',
     'date_to': '2023-08-20T10:00:00.740Z',
-    'destination': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
+    'destination_id': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
     'is_favorite': true,
-    'offers': [],
+    'offers_id': [],
     'type': 'sightseeing'
   },
   {
@@ -254,9 +254,9 @@ const mockPoints = [
     'base_price': 8072,
     'date_from': '2023-08-13T21:00:00.740Z',
     'date_to': '2023-08-19T11:00:00.740Z',
-    'destination': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
+    'destination_id': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
     'is_favorite': true,
-    'offers': [
+    'offers_id': [
       '8839de17-df24-43da-86a4-8e5d1fa6c02c',
       'b6d170be-7c5f-4847-9cd1-9ae4ec919129'
     ],
@@ -267,9 +267,9 @@ const mockPoints = [
     'base_price': 6022,
     'date_from': '2023-08-08T21:00:00.740Z',
     'date_to': '2023-08-19T11:00:00.740Z',
-    'destination': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
+    'destination_id': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
     'is_favorite': true,
-    'offers': [
+    'offers_id': [
       'f1ff4c01-0590-487d-a601-818dd934777b',
       'a1a87888-da15-4f4c-b564-978c937be4cc',
       'c8a1d6c9-1477-44fe-aa4f-5eaa79322f07',
@@ -283,9 +283,9 @@ const mockPoints = [
     'base_price': 2562,
     'date_from': '2023-08-08T21:00:00.740Z',
     'date_to': '2023-08-19T13:00:00.740Z',
-    'destination': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
+    'destination_id': 'f0e67422-029e-4ab6-8a08-cb4e4a73ab4f',
     'is_favorite': true,
-    'offers': [
+    'offers_id': [
       'c8a1d6c9-1477-44fe-aa4f-5eaa79322f07',
       '599d56be-ff36-4104-9bf4-9431adc69c1a',
       '331b41eb-d3ad-4239-ba2b-6222f2362674'
@@ -297,9 +297,9 @@ const mockPoints = [
     'base_price': 3690,
     'date_from': '2023-08-06T21:00:00.740Z',
     'date_to': '2023-08-19T22:00:00.740Z',
-    'destination': 'ce470908-e9c4-48e2-9cac-9e66b1d10c9f',
+    'destination_id': 'ce470908-e9c4-48e2-9cac-9e66b1d10c9f',
     'is_favorite': false,
-    'offers': [],
+    'offers_id': [],
     'type': 'sightseeing'
   },
   {
@@ -307,9 +307,9 @@ const mockPoints = [
     'base_price': 900,
     'date_from': '2023-08-15T21:00:00.740Z',
     'date_to': '2023-08-20T20:00:00.740Z',
-    'destination': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
+    'destination_id': '47d53e1d-61f4-403a-9da5-c1c5ceceabe9',
     'is_favorite': true,
-    'offers': [
+    'offers_id': [
       '70a6e1cf-c0ec-4abc-9ced-ad3b6fa008f7',
       'a0de29a8-b583-4dd7-9faa-5e8a4e6977c6'
     ],
