@@ -207,8 +207,8 @@ const mockOffers = [
   }
 ];
 
-function getRandomOffer() {
-  return getRandomArrayElement(mockOffers);
+function getOffers() {
+  return mockOffers;
 }
 
-export {getRandomOffer};
+export {getOffers};

@@ -5,7 +5,11 @@ function getRandomArrayElement(items) {
 }
 
 function formatDate(date){
-  return dayjs(date, 'DD');
+  return dayjs(date).format('MMM DD');
 }
 
-export {getRandomArrayElement, formatDate};
+function formatTime(date){
+  return dayjs(date).format('HH:mm');
+}
+
+export {getRandomArrayElement, formatDate, formatTime};
