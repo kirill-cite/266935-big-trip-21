@@ -19,5 +19,5 @@ appModel.ready().then(() => {
   new FilterPresenter(document.querySelector('filter-view'), appModel);
   new AddButtonPresenter(document.querySelector('add-button-view'), appModel);
   new SortPresenter(document.querySelector('sort-view'), appModel);
-  new ListPresenter(document.querySelector('list-view'),appModel);
+  new ListPresenter(document.querySelector('list-view'), appModel);
 });
