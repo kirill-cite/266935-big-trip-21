@@ -195,7 +195,7 @@ class EditorView extends View {
   createOfferListFieldHtml() {
     const {offers} = this.state;
 
-    if (offers.length) {
+    if (!offers.length) {
       return '';
     }
 
