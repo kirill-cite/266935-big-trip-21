@@ -97,6 +97,7 @@ class ListPresenter extends Presenter {
     const params = this.navigation.getParams();
 
     delete params.edit;
+
     this.navigation.setParams(params);
   }
 
