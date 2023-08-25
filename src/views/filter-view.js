@@ -26,7 +26,7 @@ class FilterView extends View {
    */
   createHtml() {
     return html`
-      ${this.state.items.map((item) => (item.isDisabled ? '' : html`
+      ${this.state.items.map((item) => html`
       <div class="trip-filters__filter">
         <input
           id="filter-${item.value}"
@@ -34,14 +34,15 @@ class FilterView extends View {
           type="radio"
           name="trip-filter"
           value=${item.value}
-          ${item.isSelected ? 'checked = true' : ''}>
+          ${item.isSelected ? 'checked' : ''}
+          ${item.isDisabled ? 'disabled' : ''}>
         <label
           class="trip-filters__filter-label"
           for="filter-${item.value}">
           ${item.value}
         </label>
       </div>
-      `))}
+      `)}
     `;
   }
 }

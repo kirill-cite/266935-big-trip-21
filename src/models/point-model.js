@@ -23,7 +23,7 @@ class PointModel extends Model {
     return {
       'id' : this.id,
       'base_price' : this.basePrice,
-      'date_from' :this.dateFrom,
+      'date_from' : this.dateFrom,
       'date_to' : this.dateTo,
       'destination' : this.destinationId,
       'is_favorite' : this.isFavorite,
