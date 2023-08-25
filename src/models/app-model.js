@@ -42,7 +42,15 @@ class AppModel extends Model {
    * @returns {Array<PointModel>}
    */
   getPoints() {
-    return this.points.map((point) => new PointModel(point));
+    return this.points.map((point) => this.createPoint(point));
+  }
+
+  /**
+   * @param {Point} data
+   * @returns {PointModel}
+   */
+  createPoint(data = Object.create(null)){
+    return new PointModel(data);
   }
 
   /**
