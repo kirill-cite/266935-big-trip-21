@@ -13,18 +13,20 @@ class ListPresenter extends Presenter {
   constructor(...rest) {
     super(...rest);
 
-    // this.view.addEventListener('change', this.onViewChange.bind(this));
+    this.view.addEventListener('open', this.onViewOpen.bind(this));
+    this.view.addEventListener('close', this.onViewClose.bind(this));
   }
 
   /**
    * @override
    */
   updateView() {
+    const params = this.navigation.getParams();
     const points = this.model.getPoints();
     const destinations = this.model.getDestinations();
     const offerGroups = this.model.getOfferGroups();
 
-    const items = points.map((point, index) => {
+    const items = points.map((point) => {
       const {offers} = offerGroups.find((group) => group.type === point.type);
       return{
         id: point.id,
@@ -34,7 +36,7 @@ class ListPresenter extends Presenter {
           isSelected: group.type === point.type,
         })),
 
-        destinations: destinations.map((destination) => ({
+        destinations: destinations?.map((destination) => ({
           ...destination,
           isSelected: destination.id === point.destinationId,
         })),
@@ -43,18 +45,40 @@ class ListPresenter extends Presenter {
         dateTo: point.dateTo,
         basePrice: point.basePrice,
 
-        offers: offers.map((offer) => ({
+        offers: offers?.map((offer) => ({
           ...offer,
           isSelected: point.offersIds?.includes(offer.id)
         })),
 
         isFavorite: point.isFavorite,
-        isEditable: index === 0
+        isEditable: params.edit === point.id,
       };
     });
 
     this.view.setState({items});
   }
+
+  /**
+   * @param {CustomEvent & {
+   *  target: import('../views/card-view').default
+   * }} event
+   */
+  onViewOpen(event){
+    const params = this.navigation.getParams();
+
+    params.edit = event.target.state.id;
+
+    this.navigation.setParams(params);
+  }
+
+  onViewClose(){
+    const params = this.navigation.getParams();
+
+    delete params.edit;
+
+    this.navigation.setParams(params);
+  }
+
 }
 
 export default ListPresenter;
