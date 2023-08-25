@@ -29,17 +29,18 @@ class ListPresenter extends Presenter {
 
     const items = points.map((point) => {
       const {offers} = offerGroups.find((group) => group.type === point.type);
+
       return{
         id: point.id,
 
         types: offerGroups.map((group) => ({
           value: group.type,
-          isSelected: group.type === point.type,
+          isSelected: group.type === point.type
         })),
 
         destinations: destinations?.map((destination) => ({
           ...destination,
-          isSelected: destination.id === point.destinationId,
+          isSelected: destination.id === point.destinationId
         })),
 
         dateFrom: point.dateFrom,
@@ -52,7 +53,7 @@ class ListPresenter extends Presenter {
         })),
 
         isFavorite: point.isFavorite,
-        isEditable: params.edit === point.id,
+        isEditable: params.edit === point.id
       };
     });
 
@@ -74,7 +75,7 @@ class ListPresenter extends Presenter {
       dateTo: state.dateTo,
       basePrice: state.basePrice,
       offerIds: state.offers.filter((offer) => offer.isSelected).map((offer) => offer.id),
-      isFavorite: state.isFavorite,
+      isFavorite: state.isFavorite
     });
     return point;
   }
