@@ -28,7 +28,19 @@ function createPointViewTemplate(point, destinations, offers) {
               </p>
               <h4 class="visually-hidden">Offers:</h4>
               <ul class="event__selected-offers">
-                ${getOffersList(type, offers_id, offers)}.map((offer) => 'test')
+                ${getOffersList(point.type, offers_id, offers).map((selectedOffer) => (selectedOffer ? /*html*/`
+                <li class="event__offer">
+                  <span
+                  class="event__offer-title">
+                  ${selectedOffer.title}
+                  </span>
+                  +€&nbsp;
+                  <span
+                  class="event__offer-price">
+                  ${selectedOffer.price}
+                  </span>
+                </li>
+                ` : ''))}
               </ul>
               <button class="event__favorite-btn event__favorite-btn--active" type="button">
                 <span class="visually-hidden">Add to favorite</span>
