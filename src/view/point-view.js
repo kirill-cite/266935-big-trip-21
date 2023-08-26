@@ -28,7 +28,7 @@ function createPointViewTemplate(point, destinations, offers) {
               </p>
               <h4 class="visually-hidden">Offers:</h4>
               <ul class="event__selected-offers">
-                ${getOffersList(type, offers_id, offers)}
+                ${getOffersList(type, offers_id, offers)}.map((offer) => 'test')
               </ul>
               <button class="event__favorite-btn event__favorite-btn--active" type="button">
                 <span class="visually-hidden">Add to favorite</span>
@@ -49,8 +49,10 @@ function getDestination(destination_id, destinations){
 
 function getOffersList(pointType, offers_id, offers){
   const offerGroup = offers.find((offer) => pointType === offer.type);
-  const selectedOffers =
-  return 'some offer';
+  console.log(offerGroup);
+  const selectedOffers = offerGroup.offers.map((offer) => (offers_id.includes(offer.id) ? offer : ''));
+  console.log(selectedOffers);
+  return selectedOffers;
   /*`
   <li class="event__offer">
                     <span class="event__offer-title">Order Uber</span>
