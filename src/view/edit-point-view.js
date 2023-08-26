@@ -158,7 +158,13 @@ function createEditPointViewTemplate() {
           </li>`;
 }
 
-export default class PointEditViewView {
+export default class PointEditView {
+  constructor({point, destinations, offers}){
+    this.point = point;
+    this.destinations = destinations;
+    this.offers = offers;
+  }
+
   getTemplate() {
     return createEditPointViewTemplate();
   }

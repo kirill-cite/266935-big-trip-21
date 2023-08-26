@@ -51,7 +51,7 @@ function getDestination(destination_id, destinations){
 function getOffersList(pointType, offers_id, offers){
   const offerGroup = offers.find((offer) => pointType === offer.type);
   const selectedOffers = offerGroup.offers.map((offer) => (offers_id.includes(offer.id) ? offer : ''));
-  console.log(selectedOffers);
+
   if (!selectedOffers.length){
     return '';
   }
@@ -74,7 +74,7 @@ function getOffersList(pointType, offers_id, offers){
     ${selectedOffer.price}
     </span>
   </li>`);
-  console.log(selectedOffersStrings);
+
   return selectedOffersStrings.join('');
 
 }
