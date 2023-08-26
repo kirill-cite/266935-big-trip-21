@@ -28,19 +28,8 @@ function createPointViewTemplate(point, destinations, offers) {
               </p>
               <h4 class="visually-hidden">Offers:</h4>
               <ul class="event__selected-offers">
-                ${getOffersList(point.type, offers_id, offers).map((selectedOffer) => (selectedOffer ? /*html*/`
-                <li class="event__offer">
-                  <span
-                  class="event__offer-title">
-                  ${selectedOffer.title}
-                  </span>
-                  +€&nbsp;
-                  <span
-                  class="event__offer-price">
-                  ${selectedOffer.price}
-                  </span>
-                </li>
-                ` : ''))}
+                ${getOffersList(point.type, offers_id, offers)}
+
               </ul>
               <button class="event__favorite-btn event__favorite-btn--active" type="button">
                 <span class="visually-hidden">Add to favorite</span>
@@ -61,16 +50,33 @@ function getDestination(destination_id, destinations){
 
 function getOffersList(pointType, offers_id, offers){
   const offerGroup = offers.find((offer) => pointType === offer.type);
-  console.log(offerGroup);
   const selectedOffers = offerGroup.offers.map((offer) => (offers_id.includes(offer.id) ? offer : ''));
   console.log(selectedOffers);
-  return selectedOffers;
-  /*`
-  <li class="event__offer">
-                    <span class="event__offer-title">Order Uber</span>
-                    +€&nbsp;
-                    <span class="event__offer-price">20</span>
-                  </li>`*/
+  if (!selectedOffers.length){
+    return '';
+  }
+
+  for (let i = 0; i < selectedOffers.length; i++){
+    if (selectedOffers[i] === ''){
+      selectedOffers.splice(i, 1);
+      i--;
+    }
+  }
+
+  let selectedOffersStrings = selectedOffers.map((selectedOffer) => `<li class="event__offer">
+    <span
+    class="event__offer-title">
+    ${selectedOffer.title}
+    </span>
+    +€&nbsp;
+    <span
+    class="event__offer-price">
+    ${selectedOffer.price}
+    </span>
+  </li>`);
+  console.log(selectedOffersStrings);
+  return selectedOffersStrings.join('');
+
 }
 
 export default class PointView {
