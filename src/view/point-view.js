@@ -63,7 +63,7 @@ function getOffersList(pointType, offers_id, offers){
     }
   }
 
-  let selectedOffersStrings = selectedOffers.map((selectedOffer) => `<li class="event__offer">
+  const selectedOffersStrings = selectedOffers.map((selectedOffer) => `<li class="event__offer">
     <span
     class="event__offer-title">
     ${selectedOffer.title}
