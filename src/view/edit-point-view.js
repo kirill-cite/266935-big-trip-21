@@ -17,7 +17,7 @@ function createEditPointViewTemplate(point, destinations, offers) {
                   <div class="event__type-list">
                     <fieldset class="event__type-group">
                       <legend class="visually-hidden">Event type</legend>
-                      ${getOffers(type, offers)}
+                      ${getSelectedOffers(type, offers)}
                       <div class="event__type-item">
                         <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
                         <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
@@ -74,31 +74,66 @@ function createEditPointViewTemplate(point, destinations, offers) {
               <section class="event__details">
                 <section class="event__section  event__section--offers">
                   <h3 class="event__section-title  event__section-title--offers">Offers</h3>
-
                   <div class="event__available-offers">
-                    <div class="event__offer-selector">
-                      <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked="">
-                      <label class="event__offer-label" for="event-offer-luggage-1">
-                        <span class="event__offer-title">Add luggage</span>
-                        +€&nbsp;
-                        <span class="event__offer-price">50</span>
-                      </label>
-                    </div>
-
+                    ${getOffers(point.type, offers_id, offers)}
                   </div>
                 </section>
-
                 <section class="event__section  event__section--destination">
-                  <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                  <p class="event__destination-description">Chamonix-Mont-Blanc (usually shortened to Chamonix) is a resort area near the junction of France, Switzerland and Italy. At the base of Mont Blanc, the highest summit in the Alps, it's renowned for its skiing.</p>
+                  ${getDestination(destination_id, destinations)}
                 </section>
               </section>
             </form>
           </li>`;
 }
 
-function getOffers(type, offers){
-  const offerTypes = offers.map((offer) => /*html*/ `
+function getDestination(destination_id, destinations){
+  const destination = destinations.find((destinationItem) => destination_id === destinationItem.id);
+
+  const destinationString = /*html*/`
+      <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+      <p class="event__destination-description">${destination.description}</p>`;
+
+  if (destination.pictures === []){
+    return destinationString;
+  }
+
+  const photosStrings = destination.pictures.map((picture) => /*html*/ `
+      <img class="event__photo" src="${picture.src}" alt="${picture.description}">
+  `);
+
+  const photosString = /*html*/`
+  <div class="event__photos-container">
+    <div class="event__photos-tape">
+      ${photosStrings.join('')}
+    </div>
+  </div>
+  `;
+
+  return destinationString + photosString;
+
+
+}
+
+function getOffers(pointType, offers_id, offers){
+  const offersGroup = offers.find((offer) => pointType === offer.type);
+
+  const offersStrings = offersGroup.offers.map((offer) => /*html*/`
+  <div class="event__offer-selector">
+    <input class="event__offer-checkbox  visually-hidden"
+      id="event-offer-${offer.title}-1" type="checkbox" name="event-offer-${offer.title}"
+      ${offers_id.includes(offer.id) ? 'checked' : ''}>
+    <label class="event__offer-label" for="event-offer-${offer.title}-1">
+      <span class="event__offer-title">${offer.title}</span>
+      +€&nbsp;
+      <span class="event__offer-price">${offer.price}</span>
+    </label>
+  </div>`);
+
+  return offersStrings.join('');
+}
+
+function getSelectedOffers(type, offers){
+  const selectedOffers = offers.map((offer) => /*html*/ `
   <div
     class="event__type-item">
     <input
@@ -115,7 +150,7 @@ function getOffers(type, offers){
     </label>
   </div>`);
 
-  return offerTypes.join('');
+  return selectedOffers.join('');
 }
 
 export default class PointEditView {
