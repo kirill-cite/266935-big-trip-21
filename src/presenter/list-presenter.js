@@ -25,7 +25,7 @@ export default class ListPresenter {
       destinations: this.listDestinations,
       offers: this.listOffers}), this.pointListComponent.getElement());
 
-    for (let i = 0; i < this.listPoints.length; i++) {
+    for (let i = 1; i < this.listPoints.length; i++) {
       render(new PointView({point : this.listPoints[i],
         destinations: this.listDestinations,
         offers: this.listOffers}),
