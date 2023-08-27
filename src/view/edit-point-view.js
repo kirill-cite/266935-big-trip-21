@@ -1,5 +1,16 @@
 import {createElement} from '../render.js';
 
+const BLANK_POINT = {
+  'id': 'ca080532-411e-4021-1234-93bb8b7ad7ea',
+  'base_price': 0,
+  'date_from': '2023-08-12T21:00:00.740Z',
+  'date_to': '2023-08-19T05:00:00.740Z',
+  'destination_id': 'c76f204e-e81a-43d8-af41-39523197812a',
+  'is_favorite': false,
+  'offers_id': [],
+  'type': 'ship'
+};
+
 function createEditPointViewTemplate(point, destinations, offers) {
 
   const {id, base_price, date_from, date_to, destination_id, is_favorite, offers_id, type} = point;
@@ -18,11 +29,6 @@ function createEditPointViewTemplate(point, destinations, offers) {
                     <fieldset class="event__type-group">
                       <legend class="visually-hidden">Event type</legend>
                       ${getSelectedOffers(type, offers)}
-                      <div class="event__type-item">
-                        <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
-                        <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
-                      </div>
-
                     </fieldset>
                   </div>
                 </div>
@@ -31,11 +37,12 @@ function createEditPointViewTemplate(point, destinations, offers) {
                   <label class="event__label  event__type-output" for="event-destination-1">
                     ${point.type}
                   </label>
-                  <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Chamonix" list="destination-list-1">
+                  <input class="event__input  event__input--destination"
+                    id="event-destination-1" type="text" name="event-destination"
+                    value=${destinations.find((destination) => destination.id === destination_id).name}
+                    list="destination-list-1">
                   <datalist id="destination-list-1">
-                    <option value="Amsterdam"></option>
-                    <option value="Geneva"></option>
-                    <option value="Chamonix"></option>
+                    ${getDestinaniosString(destinations)}
                   </datalist>
                 </div>
 
@@ -75,7 +82,7 @@ function createEditPointViewTemplate(point, destinations, offers) {
                 <section class="event__section  event__section--offers">
                   <h3 class="event__section-title  event__section-title--offers">Offers</h3>
                   <div class="event__available-offers">
-                    ${getOffers(point.type, offers_id, offers)}
+                    ${getOffers(type, offers_id, offers)}
                   </div>
                 </section>
                 <section class="event__section  event__section--destination">
@@ -84,6 +91,14 @@ function createEditPointViewTemplate(point, destinations, offers) {
               </section>
             </form>
           </li>`;
+}
+
+function getDestinaniosString(destinations){
+  const destinationNames = destinations.map((destination) =>/*html*/`
+  <option value="${destination.name}"></option>
+  `);
+
+  return destinationNames.join('');
 }
 
 function getDestination(destination_id, destinations){
@@ -115,9 +130,11 @@ function getDestination(destination_id, destinations){
 }
 
 function getOffers(pointType, offers_id, offers){
+  console.log(pointType);
   const offersGroup = offers.find((offer) => pointType === offer.type);
+  console.log(offersGroup);
 
-  const offersStrings = offersGroup.offers.map((offer) => /*html*/`
+  const offersStrings = offersGroup?.offers.map((offer) => /*html*/`
   <div class="event__offer-selector">
     <input class="event__offer-checkbox  visually-hidden"
       id="event-offer-${offer.title}-1" type="checkbox" name="event-offer-${offer.title}"
@@ -154,7 +171,7 @@ function getSelectedOffers(type, offers){
 }
 
 export default class PointEditView {
-  constructor({point, destinations, offers}){
+  constructor({point = BLANK_POINT, destinations, offers}){
     this.point = point;
     this.destinations = destinations;
     this.offers = offers;
