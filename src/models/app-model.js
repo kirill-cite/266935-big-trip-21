@@ -42,7 +42,7 @@ class AppModel extends Model {
    * @returns {Array<PointModel>}
    */
   getPoints() {
-    return this.points.map((point) => this.createPoint(point));
+    return this.points.map(this.createPoint);
   }
 
   /**
@@ -64,7 +64,6 @@ class AppModel extends Model {
     const index = this.points.findIndex((point) => point.id === model.id);
 
     this.points.splice(index, 1, data);
-
   }
 
   /**

@@ -77,6 +77,7 @@ class ListPresenter extends Presenter {
       offerIds: state.offers.filter((offer) => offer.isSelected).map((offer) => offer.id),
       isFavorite: state.isFavorite
     });
+
     return point;
   }
 
