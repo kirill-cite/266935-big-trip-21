@@ -1,6 +1,30 @@
 import {createElement} from '../render.js';
 import { formatDate, formatTime, formatDuration } from '../utils.js';
 
+export default class PointView {
+  constructor({point, destinations, offers}){
+    this.point = point;
+    this.destinations = destinations;
+    this.offers = offers;
+  }
+
+  getTemplate() {
+    return createPointViewTemplate(this.point, this.destinations, this.offers);
+  }
+
+  getElement() {
+    if (!this.element) {
+      this.element = createElement(this.getTemplate());
+    }
+
+    return this.element;
+  }
+
+  removeElement() {
+    this.element = null;
+  }
+}
+
 function createPointViewTemplate(point, destinations, offers) {
 
   const {id, base_price, date_from, date_to, destination_id, is_favorite, offers_id, type} = point;
@@ -46,8 +70,6 @@ function createPointViewTemplate(point, destinations, offers) {
           </li>`;
 }
 
-
-
 function getDestination(destination_id, destinations){
   return destinations.find((destination) => destination_id === destination.id).name;
 }
@@ -83,26 +105,4 @@ function getOffersList(pointType, offers_id, offers){
 
 }
 
-export default class PointView {
-  constructor({point, destinations, offers}){
-    this.point = point;
-    this.destinations = destinations;
-    this.offers = offers;
-  }
 
-  getTemplate() {
-    return createPointViewTemplate(this.point, this.destinations, this.offers);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
-}
