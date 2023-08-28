@@ -2,7 +2,7 @@ import {getAllPoints} from '../mock/points.js';
 
 
 export default class PointsModel {
-  points = Array.from(getAllPoints());
+  points = getAllPoints();
 
   getPoints() {
     return this.points.map((point) => ({
