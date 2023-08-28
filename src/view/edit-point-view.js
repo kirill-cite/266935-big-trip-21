@@ -149,8 +149,6 @@ function getDestination(destinationId, destinations){
   `;
 
   return destinationString + photosString;
-
-
 }
 
 function getOffers(pointType, offerIds, offers){
