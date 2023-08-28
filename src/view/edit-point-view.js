@@ -1,19 +1,43 @@
 import {createElement} from '../render.js';
 
 const BLANK_POINT = {
-  'id': 'ca080532-411e-4021-1234-93bb8b7ad7ea',
-  'base_price': 0,
-  'date_from': '2023-08-12T21:00:00.740Z',
-  'date_to': '2023-08-19T05:00:00.740Z',
-  'destination_id': 'c76f204e-e81a-43d8-af41-39523197812a',
-  'is_favorite': false,
-  'offers_id': [],
-  'type': 'ship'
+  id: 'ca080532-411e-4021-1234-93bb8b7ad7ea',
+  basePrice: 0,
+  dateFrom: '2023-08-12T21:00:00.740Z',
+  dateTo: '2023-08-19T05:00:00.740Z',
+  destinationId: 'c76f204e-e81a-43d8-af41-39523197812a',
+  isFavorite: false,
+  offerIds: [],
+  type: 'ship'
 };
+
+export default class PointEditView {
+  constructor({point = BLANK_POINT, destinations, offers}){
+    this.point = point;
+    this.destinations = destinations;
+    this.offers = offers;
+  }
+
+  getTemplate() {
+    return createEditPointViewTemplate(this.point, this.destinations, this.offers);
+  }
+
+  getElement() {
+    if (!this.element) {
+      this.element = createElement(this.getTemplate());
+    }
+
+    return this.element;
+  }
+
+  removeElement() {
+    this.element = null;
+  }
+}
 
 function createEditPointViewTemplate(point, destinations, offers) {
 
-  const {id, base_price, date_from, date_to, destination_id, is_favorite, offers_id, type} = point;
+  const {basePrice, dateFrom, dateTo, destinationId, offerIds, type} = point;
 
   return /*html*/`<li class="trip-events__item">
             <form class="event event--edit" action="#" method="post">
@@ -39,7 +63,7 @@ function createEditPointViewTemplate(point, destinations, offers) {
                   </label>
                   <input class="event__input  event__input--destination"
                     id="event-destination-1" type="text" name="event-destination"
-                    value=${destinations.find((destination) => destination.id === destination_id).name}
+                    value=${destinations.find((destination) => destination.id === destinationId).name}
                     list="destination-list-1">
                   <datalist id="destination-list-1">
                     ${getDestinaniosString(destinations)}
@@ -54,12 +78,12 @@ function createEditPointViewTemplate(point, destinations, offers) {
                     </label>
                   <input class="event__input  event__input--time"
                     id="event-start-time-1" type="text" name="event-start-time"
-                    value=${date_from}>
+                    value=${dateFrom}>
                   —
                   <label class="visually-hidden" for="event-end-time-1">To</label>
                   <input class="event__input  event__input--time"
                     id="event-end-time-1" type="text" name="event-end-time"
-                    value=${date_to}>
+                    value=${dateTo}>
                 </div>
 
                 <div class="event__field-group  event__field-group--price">
@@ -69,7 +93,7 @@ function createEditPointViewTemplate(point, destinations, offers) {
                   </label>
                   <input class="event__input  event__input--price"
                     id="event-price-1" type="text" name="event-price"
-                    value=${base_price}>
+                    value=${basePrice}>
                 </div>
 
                 <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -82,11 +106,11 @@ function createEditPointViewTemplate(point, destinations, offers) {
                 <section class="event__section  event__section--offers">
                   <h3 class="event__section-title  event__section-title--offers">Offers</h3>
                   <div class="event__available-offers">
-                    ${getOffers(type, offers_id, offers)}
+                    ${getOffers(type, offerIds, offers)}
                   </div>
                 </section>
                 <section class="event__section  event__section--destination">
-                  ${getDestination(destination_id, destinations)}
+                  ${getDestination(destinationId, destinations)}
                 </section>
               </section>
             </form>
@@ -101,8 +125,8 @@ function getDestinaniosString(destinations){
   return destinationNames.join('');
 }
 
-function getDestination(destination_id, destinations){
-  const destination = destinations.find((destinationItem) => destination_id === destinationItem.id);
+function getDestination(destinationId, destinations){
+  const destination = destinations.find((destinationItem) => destinationId === destinationItem.id);
 
   const destinationString = /*html*/`
       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
@@ -129,16 +153,14 @@ function getDestination(destination_id, destinations){
 
 }
 
-function getOffers(pointType, offers_id, offers){
-  console.log(pointType);
+function getOffers(pointType, offerIds, offers){
   const offersGroup = offers.find((offer) => pointType === offer.type);
-  console.log(offersGroup);
 
   const offersStrings = offersGroup?.offers.map((offer) => /*html*/`
   <div class="event__offer-selector">
     <input class="event__offer-checkbox  visually-hidden"
       id="event-offer-${offer.title}-1" type="checkbox" name="event-offer-${offer.title}"
-      ${offers_id.includes(offer.id) ? 'checked' : ''}>
+      ${offerIds.includes(offer.id) ? 'checked' : ''}>
     <label class="event__offer-label" for="event-offer-${offer.title}-1">
       <span class="event__offer-title">${offer.title}</span>
       +€&nbsp;
@@ -170,26 +192,4 @@ function getSelectedOffers(type, offers){
   return selectedOffers.join('');
 }
 
-export default class PointEditView {
-  constructor({point = BLANK_POINT, destinations, offers}){
-    this.point = point;
-    this.destinations = destinations;
-    this.offers = offers;
-  }
 
-  getTemplate() {
-    return createEditPointViewTemplate(this.point, this.destinations, this.offers);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
-}

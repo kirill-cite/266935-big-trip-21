@@ -27,36 +27,36 @@ export default class PointView {
 
 function createPointViewTemplate(point, destinations, offers) {
 
-  const {id, base_price, date_from, date_to, destination_id, is_favorite, offers_id, type} = point;
+  const { basePrice, dateFrom, dateTo, destinationId, isFavorite, offerIds, type} = point;
 
   return /*html*/`<li class="trip-events__item">
             <div class="event">
-              <time class="event__date" datetime=${date_from}>${formatDate(date_from)}</time>
+              <time class="event__date" datetime=${dateFrom}>${formatDate(dateFrom)}</time>
               <div class="event__type">
                 <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
               </div>
               <h3 class="event__title">${type}
-              ${getDestination(destination_id, destinations)}</h3>
+              ${getDestination(destinationId, destinations)}</h3>
               <div class="event__schedule">
                 <p class="event__time">
                   <time class="event__start-time"
-                  datetime=${date_from}>${formatTime(date_from)}</time>
+                  datetime=${dateFrom}>${formatTime(dateFrom)}</time>
                   —
                   <time class="event__end-time"
-                  datetime=${date_to}">${formatTime(date_to)}</time>
+                  datetime=${dateTo}">${formatTime(dateTo)}</time>
                 </p>
-                <p class="event__duration">${formatDuration(date_from, date_to)}</p>
+                <p class="event__duration">${formatDuration(dateFrom, dateTo)}</p>
               </div>
               <p class="event__price">
-                €&nbsp;<span class="event__price-value">${base_price}</span>
+                €&nbsp;<span class="event__price-value">${basePrice}</span>
               </p>
               <h4 class="visually-hidden">Offers:</h4>
               <ul class="event__selected-offers">
-                ${getOffersList(point.type, offers_id, offers)}
+                ${getOffersList(point.type, offerIds, offers)}
 
               </ul>
               <button
-                class="event__favorite-btn ${is_favorite ? 'event__favorite-btn--active' : ''}"
+                class="event__favorite-btn ${isFavorite ? 'event__favorite-btn--active' : ''}"
                 type="button">
                 <span class="visually-hidden">Add to favorite</span>
                 <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
@@ -70,13 +70,13 @@ function createPointViewTemplate(point, destinations, offers) {
           </li>`;
 }
 
-function getDestination(destination_id, destinations){
-  return destinations.find((destination) => destination_id === destination.id).name;
+function getDestination(destinationId, destinations){
+  return destinations.find((destination) => destinationId === destination.id).name;
 }
 
-function getOffersList(pointType, offers_id, offers){
+function getOffersList(pointType, offerIds, offers){
   const offerGroup = offers.find((offer) => pointType === offer.type);
-  const selectedOffers = offerGroup.offers.map((offer) => (offers_id.includes(offer.id) ? offer : ''));
+  const selectedOffers = offerGroup.offers.map((offer) => (offerIds.includes(offer.id) ? offer : ''));
 
   if (!selectedOffers.length){
     return '';
