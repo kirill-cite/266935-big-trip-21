@@ -33,15 +33,15 @@ export default class BoardPresenter {
     render(this.#boardComponent, this.#boardContainer);
     render(new SortView(), this.#boardComponent.element);
     render(this.#pointsListComponent, this.#boardComponent.element);
-    render(new PointEditView({point : this.#boardPoints[0],
-      destinations: this.#boardDestinations,
-      offers: this.#boardOffers}), this.#pointsListComponent.element);
 
     for (let i = 1; i < this.#boardPoints.length; i++) {
-      render(new PointView({point : this.#boardPoints[i],
-        destinations: this.#boardDestinations,
-        offers: this.#boardOffers}),
-      this.#pointsListComponent.element);
+      this.#renderPoint(this.#boardPoints[i], this.#boardDestinations, this.#boardOffers);
     }
+  }
+
+  #renderPoint(point, destinations, offers){
+    const pointComponent = new PointView({point, destinations, offers});
+
+    render(pointComponent, this.#pointsListComponent.element);
   }
 }
