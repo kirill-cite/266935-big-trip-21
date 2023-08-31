@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 const BLANK_POINT = {
   id: 'ca080532-411e-4021-1234-93bb8b7ad7ea',
@@ -11,28 +11,23 @@ const BLANK_POINT = {
   type: 'ship'
 };
 
-export default class PointEditView {
+export default class PointEditView extends AbstractView {
+  #point = null;
+  #destinations = null;
+  #offers = null;
+
   constructor({point = BLANK_POINT, destinations, offers}){
-    this.point = point;
-    this.destinations = destinations;
-    this.offers = offers;
+    super();
+
+    this.#point = point;
+    this.#destinations = destinations;
+    this.#offers = offers;
   }
 
-  getTemplate() {
-    return createEditPointViewTemplate(this.point, this.destinations, this.offers);
+  get template() {
+    return createEditPointViewTemplate(this.#point, this.#destinations, this.#offers);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
 }
 
 function createEditPointViewTemplate(point, destinations, offers) {

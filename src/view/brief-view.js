@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 function createBriefViewTemplate() {
   return /*html*/`<section
@@ -23,20 +23,9 @@ function createBriefViewTemplate() {
           </section>`;
 }
 
-export default class BriefView {
-  getTemplate() {
+export default class BriefView extends AbstractView {
+  get template() {
     return createBriefViewTemplate();
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
 }

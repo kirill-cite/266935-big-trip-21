@@ -1,7 +1,7 @@
 import BriefViewView from './view/brief-view.js';
 import FilterView from './view/filter-view.js';
 import ListPresenter from './presenter/list-presenter.js';
-import {RenderPosition, render} from './render.js';
+import { RenderPosition, render } from './framework/render.js';
 import PointsModel from './model/points-model.js';
 import DestinationsModel from './model/destinations-model.js';
 import OffersModel from './model/offers-model.js';
