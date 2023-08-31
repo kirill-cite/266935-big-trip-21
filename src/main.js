@@ -9,7 +9,7 @@ import OffersModel from './model/offers-model.js';
 
 const tripMainElement = document.querySelector('.trip-main');
 const tripFiltersElement = document.querySelector('.trip-controls__filters');
-const boardContainerElement = document.querySelector('.page-body__container');
+const boardContainerElement = document.querySelectorAll('.page-body__container');
 
 const pointsModel = new PointsModel();
 const destinationsModel = new DestinationsModel();
@@ -19,7 +19,7 @@ render(new BriefViewView(), tripMainElement, RenderPosition.AFTERBEGIN);
 render(new FilterView(), tripFiltersElement);
 render(new NewEventButtonView, tripMainElement, RenderPosition.BEFOREEND);
 
-const boardPresenter = new BoardPresenter({boardContainer: boardContainerElement,
+const boardPresenter = new BoardPresenter({boardContainer: boardContainerElement[1],
   pointsModel,
   destinationsModel,
   offersModel});
