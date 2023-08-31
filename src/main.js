@@ -1,6 +1,7 @@
 import BriefViewView from './view/brief-view.js';
 import FilterView from './view/filter-view.js';
-import ListPresenter from './presenter/list-presenter.js';
+import NewEventButtonView from './view/new-event-button-view.js';
+import BoardPresenter from './presenter/board-presenter.js';
 import { RenderPosition, render } from './framework/render.js';
 import PointsModel from './model/points-model.js';
 import DestinationsModel from './model/destinations-model.js';
@@ -8,7 +9,7 @@ import OffersModel from './model/offers-model.js';
 
 const tripMainElement = document.querySelector('.trip-main');
 const tripFiltersElement = document.querySelector('.trip-controls__filters');
-const tripListContainerElement = document.querySelector('.trip-events');
+const boardContainerElement = document.querySelector('.page-body__container');
 
 const pointsModel = new PointsModel();
 const destinationsModel = new DestinationsModel();
@@ -16,10 +17,11 @@ const offersModel = new OffersModel();
 
 render(new BriefViewView(), tripMainElement, RenderPosition.AFTERBEGIN);
 render(new FilterView(), tripFiltersElement);
+render(new NewEventButtonView, tripMainElement, RenderPosition.BEFOREEND);
 
-const listPresenter = new ListPresenter({listContainer: tripListContainerElement,
+const boardPresenter = new BoardPresenter({boardContainer: boardContainerElement,
   pointsModel,
   destinationsModel,
   offersModel});
 
-listPresenter.init();
+boardPresenter.init();

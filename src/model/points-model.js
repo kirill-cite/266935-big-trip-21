@@ -2,10 +2,10 @@ import {getAllPoints} from '../mock/points.js';
 
 
 export default class PointsModel {
-  points = getAllPoints();
+  #points = getAllPoints();
 
-  getPoints() {
-    return this.points.map((point) => ({
+  get points() {
+    return this.#points.map((point) => ({
       id: point.id,
       basePrice: point.base_price,
       dateFrom: point.date_to,
