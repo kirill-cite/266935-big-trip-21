@@ -6,6 +6,7 @@ import { RenderPosition, render } from './framework/render.js';
 import PointsModel from './model/points-model.js';
 import DestinationsModel from './model/destinations-model.js';
 import OffersModel from './model/offers-model.js';
+import { generateFilter } from './mock/filter.js';
 
 const tripMainElement = document.querySelector('.trip-main');
 const tripFiltersElement = document.querySelector('.trip-controls__filters');
@@ -15,8 +16,10 @@ const pointsModel = new PointsModel();
 const destinationsModel = new DestinationsModel();
 const offersModel = new OffersModel();
 
+const filters = generateFilter(pointsModel.points);
+
 render(new BriefViewView(), tripMainElement, RenderPosition.AFTERBEGIN);
-render(new FilterView(), tripFiltersElement);
+render(new FilterView({filters}), tripFiltersElement);
 render(new NewEventButtonView, tripMainElement, RenderPosition.BEFOREEND);
 
 const boardPresenter = new BoardPresenter({boardContainer: boardContainerElement[1],

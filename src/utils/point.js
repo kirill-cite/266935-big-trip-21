@@ -1,7 +1,12 @@
 import dayjs from 'dayjs';
 import durationPlugin from 'dayjs/plugin/duration.js';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 
 dayjs.extend(durationPlugin);
+dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
+
 
 function formatDate(date){
   return dayjs(date).format('MMM DD');
