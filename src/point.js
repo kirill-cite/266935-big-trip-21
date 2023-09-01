@@ -3,10 +3,6 @@ import durationPlugin from 'dayjs/plugin/duration.js';
 
 dayjs.extend(durationPlugin);
 
-function getRandomArrayElement(items) {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
 function formatDate(date){
   return dayjs(date).format('MMM DD');
 }
@@ -30,4 +26,4 @@ function formatDuration(dateFrom, dateTo){
   return duration.format('mm[m]');
 }
 
-export {getRandomArrayElement, formatDate, formatTime, formatDuration};
+export { formatDate, formatTime, formatDuration };
