@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { formatDate, formatTime, formatDuration } from '../utils.js';
+import { formatDate, formatTime, formatDuration } from '../utils/point.js';
 
 export default class PointView extends AbstractView {
   #point = null;

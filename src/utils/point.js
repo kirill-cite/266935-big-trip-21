@@ -26,4 +26,16 @@ function formatDuration(dateFrom, dateTo){
   return duration.format('mm[m]');
 }
 
-export { formatDate, formatTime, formatDuration };
+function isPointFuture(dateFrom) {
+  return dayjs().isBefore(dateFrom);
+}
+
+function isPointPresent(dateFrom, dateTo) {
+  return dayjs().isSameOrBefore(dateFrom) && dayjs().isSameOrAfter(dateTo);
+}
+
+function isPointPast(dateTo){
+  return dayjs().isAfter(dateTo);
+}
+
+export { formatDate, formatTime, formatDuration, isPointFuture, isPointPresent, isPointPast };
