@@ -45,7 +45,7 @@ export default class PointEditView extends AbstractView {
   #rollUpHandler = (evt) => {
     evt.preventDefault();
     this.#handleRollUpClick();
-  }
+  };
 }
 
 function createEditPointViewTemplate(point, destinations, offers) {
