@@ -34,7 +34,7 @@ class SortView extends View {
             class="trip-sort__input  visually-hidden"
             type="radio"
             name="trip-sort"
-            value="sort-${item.value}"
+            value="${item.value}"
             ${item.isSelected ? 'checked' : ''}
             ${item.isDisabled ? 'disabled' : ''}>
           <label

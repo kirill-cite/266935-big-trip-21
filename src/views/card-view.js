@@ -2,9 +2,9 @@ import View from './view.js';
 import {html, formatDate, formatTime, formatDuration, formatNumber} from '../utilities.js';
 
 /**
- *@typedef {import('./list-view').ItemState} State
+ * @typedef {import('./list-view').ItemState} State
  *
- *@extends {View<State>}
+ * @extends {View<State>}
  */
 
 class CardView extends View {
