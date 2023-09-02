@@ -19,5 +19,4 @@ export default class NoPointView extends AbstractView {
   get template() {
     return createNoPointViewTemplate();
   }
-
 }
