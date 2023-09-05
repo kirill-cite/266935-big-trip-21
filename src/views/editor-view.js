@@ -13,6 +13,11 @@ class EditorView extends View {
   constructor() {
     super();
 
+    /**
+     * @type {Function}
+     */
+    this.destroyCalendars = null;
+
     this.addEventListener('click', this.onClick);
     this.addEventListener('change', this.onChange);
   }
@@ -22,6 +27,8 @@ class EditorView extends View {
   }
 
   disconnectedCallback() {
+    //@ts-ignore
+    this.destroyCalendars = createCalendar(...this.querySelectorAll('.event__input--time'));
     document.removeEventListener('keydown', this);
   }
 
@@ -29,9 +36,10 @@ class EditorView extends View {
    * @override
    */
   render() {
+    this.destroyCalendars?.();
     super.render();
     //@ts-ignore
-    createCalendar(...this.querySelectorAll('.event__input--time'));
+    this.destroyCalendars = createCalendar(...this.querySelectorAll('.event__input--time'));
   }
 
   /**
