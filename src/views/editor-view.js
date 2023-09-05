@@ -28,7 +28,7 @@ class EditorView extends View {
 
   disconnectedCallback() {
     //@ts-ignore
-    this.destroyCalendars = createCalendar(...this.querySelectorAll('.event__input--time'));
+    this.destroyCalendars?.();
     document.removeEventListener('keydown', this);
   }
 
