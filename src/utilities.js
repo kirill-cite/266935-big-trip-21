@@ -18,7 +18,9 @@ function createCalendar(inputFrom, inputTo) {
     dateFormat: 'Z',
     altInput: true,
     altFormat: 'd/m/y H:i',
-    locale: { firstDayOfWeek: 1}
+    locale: { firstDayOfWeek: 1},
+    enableTime: true,
+    'time_24hr': true
   };
   const calendarFrom = flatpickr(inputFrom, options);
   const calendarTo = flatpickr(inputTo, options);
