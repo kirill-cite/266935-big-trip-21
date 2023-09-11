@@ -260,9 +260,10 @@ class EditorView extends View {
     const {destinations} = this.state;
     const selectedDestination = destinations.find((destination) => destination.isSelected);
 
-    if (!selectedDestination) {
+    if (!selectedDestination || !selectedDestination.description) {
       return '';
     }
+
     return html`
       <section class="event__section  event__section--destination">
         <h3 class="event__section-title  event__section-title--destination">Destination</h3>
