@@ -4,7 +4,7 @@ import PointsListView from '../view/points-list-view.js';
 import PointView from '../view/point-view.js';
 import PointEditView from '../view/point-edit-view.js';
 import NoPointView from '../view/no-point-view.js';
-import { render, replace } from '../framework/render.js';
+import { render, RenderPosition, replace, remove } from '../framework/render.js';
 
 export default class BoardPresenter {
   #boardContainer = null;
@@ -14,6 +14,8 @@ export default class BoardPresenter {
 
   #boardComponent = new BoardView();
   #pointsListComponent = new PointsListView();
+  #sortComponent = new SortView();
+  #noPointComponent = new NoPointView();
 
   #boardPoints = [];
   #boardDestinations = [];
