@@ -18,21 +18,15 @@ export default class BoardPresenter {
   #noPointComponent = new NoPointView();
 
   #boardPoints = [];
-  #boardDestinations = [];
-  #boardOffers = [];
 
-  constructor({boardContainer, pointsModel, destinationsModel, offersModel}) {
+  constructor({boardContainer, pointsModel}) {
     this.#boardContainer = boardContainer;
     this.#pointsModel = pointsModel;
-    this.#destinationsModel = destinationsModel;
-    this.#offersModel = offersModel;
   }
 
   init() {
     this.#boardPoints = [...this.#pointsModel.points];
-    this.#boardDestinations = [...this.#destinationsModel.destinations];
-    this.#boardOffers = [...this.#offersModel.offers];
-
+    console.log(this.#boardPoints);
     this.#renderBoard();
   }
 
@@ -40,7 +34,7 @@ export default class BoardPresenter {
     render(this.#sortComponent, this.#boardComponent.element, RenderPosition.AFTERBEGIN);
   }
 
-  #renderPoint(point, destinations, offers){
+  #renderPoint(point){
     const escKeyDownHandler = (evt) => {
       if (evt.key === 'Escape') {
         evt.preventDefault();
@@ -49,14 +43,14 @@ export default class BoardPresenter {
       }
     };
     const pointComponent = new PointView({
-      point, destinations, offers,
+      point,
       onEditClick: () => {
         replaceCardToForm();
         document.addEventListener('keydown', escKeyDownHandler);
       }
     });
     const pointEditComponent = new PointEditView({
-      point, destinations, offers,
+      point,
       onFormSubmit: () => {
         replaceFormToCard();
         document.removeEventListener('keydown', escKeyDownHandler);
@@ -79,7 +73,7 @@ export default class BoardPresenter {
   }
 
   #renderPoints() {
-    this.#boardPoints.forEach((point) => this.#renderPoint(point, this.#boardDestinations, this.#boardOffers));
+    this.#boardPoints.forEach((point) => this.#renderPoint(point));
   }
 
   #renderNoPoints() {

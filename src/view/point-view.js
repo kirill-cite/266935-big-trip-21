@@ -3,16 +3,12 @@ import { formatDate, formatTime, formatDuration } from '../utils/point.js';
 
 export default class PointView extends AbstractView {
   #point = null;
-  #destinations = null;
-  #offers = null;
   #handleEditClick = null;
 
-  constructor({point, destinations, offers, onEditClick}){
+  constructor({point, onEditClick}){
     super();
 
     this.#point = point;
-    this.#destinations = destinations;
-    this.#offers = offers;
     this.#handleEditClick = onEditClick;
 
     this.element.querySelector('.event__rollup-btn')
@@ -20,7 +16,7 @@ export default class PointView extends AbstractView {
   }
 
   get template() {
-    return createPointViewTemplate(this.#point, this.#destinations, this.#offers);
+    return createPointViewTemplate(this.#point);
   }
 
   #editClickHandler = (evt) => {
@@ -30,19 +26,19 @@ export default class PointView extends AbstractView {
 
 }
 
-function createPointViewTemplate(point, destinations, offers) {
+function createPointViewTemplate(point) {
 
-  const { basePrice, dateFrom, dateTo, destinationId, isFavorite, offerIds, type } = point;
+  const { basePrice, dateFrom, dateTo, destinations, isFavorite, offers, type } = point;
 
   return /*html*/`
     <li class="trip-events__item">
       <div class="event">
         ${getEventDate(dateFrom)}
         ${getEventIcon(type)}
-        ${getEventTitle(type, destinationId, destinations)}
+        ${getEventTitle(type, destinations)}
         ${getSchedule(dateFrom, dateTo)}
         ${getPrice(basePrice)}
-        ${getSelectedOffers(point.type, offerIds, offers)}
+        ${getSelectedOffers(point.type, offers)}
         ${getAddFavoriteButton(isFavorite)}
         ${getOpenEditButton()}
       </div>
@@ -78,7 +74,7 @@ function getEventTitle(type, destinationId, destinations){
 }
 
 function getDestination(destinationId, destinations){
-  return destinations.find((destination) => destinationId === destination.id).name;
+  return destinations?.find((destination) => destination.isSelected).name;
 }
 
 function getSchedule(dateFrom, dateTo){
@@ -104,31 +100,19 @@ function getPrice(basePrice){
   `;
 }
 
-function getSelectedOffers(type, offerIds, offers){
+function getSelectedOffers(offers){
   return /*html*/`
   <h4 class="visually-hidden">Offers:</h4>
   <ul class="event__selected-offers">
-    ${getOffersList(type, offerIds, offers)}
+    ${getOffersList(offers)}
   </ul>
   `;
 }
 
-function getOffersList(pointType, offerIds, offers){
-  const offerGroup = offers.find((offer) => pointType === offer.type);
-  const selectedOffers = offerGroup.offers.map((offer) => (offerIds.includes(offer.id) ? offer : ''));
+function getOffersList(offers){
 
-  if (!selectedOffers.length){
-    return '';
-  }
-
-  for (let i = 0; i < selectedOffers.length; i++){
-    if (selectedOffers[i] === ''){
-      selectedOffers.splice(i, 1);
-      i--;
-    }
-  }
-
-  const selectedOffersStrings = selectedOffers.map((selectedOffer) => /*html*/`<li class="event__offer">
+  console.log(offers);
+  const selectedOffersStrings = offers.map((selectedOffer) => /*html*/`<li class="event__offer">
     <span
     class="event__offer-title">
     ${selectedOffer.title}
