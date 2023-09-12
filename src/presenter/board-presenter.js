@@ -41,6 +41,7 @@ export default class BoardPresenter {
   #renderPoint(point){
     const pointPresenter = new PointPresenter({
       pointListContainer: this.#pointsListComponent.element,
+      onDataChange: this.#handlePointChange
     });
 
     pointPresenter.init(point);
