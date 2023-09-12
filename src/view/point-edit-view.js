@@ -18,12 +18,10 @@ export default class PointEditView extends AbstractView {
   #handleFormSubmit = null;
   #handleRollUpClick = null;
 
-  constructor({point = BLANK_POINT, destinations, offers, onFormSubmit, onRollUpClick}){
+  constructor({point = BLANK_POINT, onFormSubmit, onRollUpClick}){
     super();
 
     this.#point = point;
-    this.#destinations = destinations;
-    this.#offers = offers;
     this.#handleFormSubmit = onFormSubmit;
     this.#handleRollUpClick = onRollUpClick;
 
@@ -48,15 +46,15 @@ export default class PointEditView extends AbstractView {
   };
 }
 
-function createEditPointViewTemplate(point, destinations, offers) {
-  const {basePrice, dateFrom, dateTo, destinationId, offerIds, type} = point;
+function createEditPointViewTemplate(point) {
+  const {basePrice, dateFrom, dateTo, destinations, offers, type} = point;
 
   return /*html*/`
     <li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
         <header class="event__header">
           ${getEventWrapper(type, offers)}
-          ${getDestinations(type, destinationId, destinations)}
+          ${getDestinations(type, destinations)}
           ${getEventTime(dateFrom, dateTo)}
           ${getBasePrice(basePrice)}
           ${getSaveButton()}
@@ -64,8 +62,8 @@ function createEditPointViewTemplate(point, destinations, offers) {
           ${getEventRollupButton()}
         </header>
         <section class="event__details">
-          ${getOffersList(type, offerIds, offers)}
-          ${getDestinationDescription(destinationId, destinations)}
+          ${getOffersList(offers)}
+          ${getDestinationDescription(destinations)}
         </section>
       </form>
    </li>`;
@@ -100,35 +98,35 @@ function getEventWrapper(type, offers){
             class="visually-hidden">
             Event type
           </legend>
-          ${getSelectedOffer(type, offers)}
+          ${getSelectedOffer(offers)}
         </fieldset>
       </div>
     </div>
   `;
 }
 
-function getSelectedOffer(type, offers){
+function getSelectedOffer(offers){
   const selectedOffers = offers.map((offer) => /*html*/ `
     <div
       class="event__type-item">
       <input
-        id="event-type-${offer.type}-1"
+        id="event-type-${offer.title}-1"
         class="event__type-input  visually-hidden"
         type="radio"
         name="event-type"
-        value="${offer.type}"
-        ${type === offer.type ? 'checked' : ''}>
+        value="${offer.title}"
+        ${offer.isSelected ? 'checked' : ''}>
       <label
-        class="event__type-label  event__type-label--${offer.type}"
-        for="event-type-${offer.type}-1">
-        ${offer.type[0].toUpperCase() + offer.type.slice(1)}
+        class="event__type-label  event__type-label--${offer.title}"
+        for="event-type-${offer.title}-1">
+        ${offer.title[0].toUpperCase() + offer.title.slice(1)}
       </label>
     </div>`);
 
   return selectedOffers.join('');
 }
 
-function getDestinations(type, destinationId, destinations){
+function getDestinations(type, destinations){
   return /*html*/`
   <div
     class="event__field-group  event__field-group--destination">
@@ -142,7 +140,7 @@ function getDestinations(type, destinationId, destinations){
       id="event-destination-1"
       type="text"
       name="event-destination"
-      value=${destinations.find((destination) => destination.id === destinationId).name}
+      value=${destinations?.find((destination) => destination.isSelected).name}
       list="destination-list-1">
     <datalist
       id="destination-list-1">
@@ -153,7 +151,7 @@ function getDestinations(type, destinationId, destinations){
 }
 
 function getDestinationsList(destinations){
-  const destinationNames = destinations.map((destination) =>/*html*/`
+  const destinationNames = destinations?.map((destination) =>/*html*/`
   <option value="${destination.name}"></option>
   `);
 
@@ -228,25 +226,27 @@ function getEventRollupButton(){
   `;
 }
 
-function getOffersList(type, offerIds, offers){
+function getOffersList(offers){
+  if (offers.length === 0){
+    return '';
+  }
+
   return /*html*/`
     <section class="event__section  event__section--offers">
       <h3 class="event__section-title  event__section-title--offers">Offers</h3>
       <div class="event__available-offers">
-        ${getOffers(type, offerIds, offers)}
+        ${getOffers(offers)}
       </div>
     </section>
   `;
 }
 
-function getOffers(pointType, offerIds, offers){
-  const offersGroup = offers.find((offer) => pointType === offer.type);
-
-  const offersStrings = offersGroup?.offers.map((offer) => /*html*/`
+function getOffers(offers){
+  const offersStrings = offers?.map((offer) => /*html*/`
   <div class="event__offer-selector">
     <input class="event__offer-checkbox  visually-hidden"
       id="event-offer-${offer.title}-1" type="checkbox" name="event-offer-${offer.title}"
-      ${offerIds.includes(offer.id) ? 'checked' : ''}>
+      ${offer.isSelected ? 'checked' : ''}>
     <label class="event__offer-label" for="event-offer-${offer.title}-1">
       <span class="event__offer-title">${offer.title}</span>
       +€&nbsp;
@@ -257,22 +257,22 @@ function getOffers(pointType, offerIds, offers){
   return offersStrings.join('');
 }
 
-function getDestinationDescription(destinationId, destinations){
+function getDestinationDescription(destinations){
   return /*html*/`
   <section class="event__section  event__section--destination">
-    ${getDestination(destinationId, destinations)}
+    ${getDestinationString(destinations)}
   </section>
   `;
 }
 
-function getDestination(destinationId, destinations){
-  const destination = destinations.find((destinationItem) => destinationId === destinationItem.id);
+function getDestinationString(destinations){
+  const destination = destinations.find((destinationItem) => destinationItem.isSelected);
 
   const destinationString = /*html*/`
       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
       <p class="event__destination-description">${destination.description}</p>`;
 
-  if (destination.pictures === []){
+  if (destination.pictures.length === 0){
     return destinationString;
   }
 

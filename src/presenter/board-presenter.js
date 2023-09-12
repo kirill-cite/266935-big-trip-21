@@ -9,8 +9,6 @@ import { render, RenderPosition, replace } from '../framework/render.js';
 export default class BoardPresenter {
   #boardContainer = null;
   #pointsModel = null;
-  #destinationsModel = null;
-  #offersModel = null;
 
   #boardComponent = new BoardView();
   #pointsListComponent = new PointsListView();
@@ -26,7 +24,6 @@ export default class BoardPresenter {
 
   init() {
     this.#boardPoints = [...this.#pointsModel.points];
-    console.log(this.#boardPoints);
     this.#renderBoard();
   }
 

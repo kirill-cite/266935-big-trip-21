@@ -38,7 +38,7 @@ function createPointViewTemplate(point) {
         ${getEventTitle(type, destinations)}
         ${getSchedule(dateFrom, dateTo)}
         ${getPrice(basePrice)}
-        ${getSelectedOffers(point.type, offers)}
+        ${getSelectedOffers(offers)}
         ${getAddFavoriteButton(isFavorite)}
         ${getOpenEditButton()}
       </div>
@@ -64,16 +64,16 @@ function getEventIcon(type){
   `;
 }
 
-function getEventTitle(type, destinationId, destinations){
+function getEventTitle(type, destinations){
   return /*html*/`
   <h3 class="event__title">
     ${type}
-    ${getDestination(destinationId, destinations)}
+    ${getDestination(destinations)}
   </h3>
   `;
 }
 
-function getDestination(destinationId, destinations){
+function getDestination(destinations){
   return destinations?.find((destination) => destination.isSelected).name;
 }
 
@@ -104,28 +104,23 @@ function getSelectedOffers(offers){
   return /*html*/`
   <h4 class="visually-hidden">Offers:</h4>
   <ul class="event__selected-offers">
-    ${getOffersList(offers)}
+    ${offers.map((offer) => offer.isSelected ? /*html*/
+    `<li class="event__offer">
+        <span
+        class="event__offer-title">
+        ${offer.title}
+        </span>
+        +€&nbsp;
+        <span
+        class="event__offer-price">
+        ${offer.price}
+        </span>
+      </li>` : '')
+    .join('')}
   </ul>
   `;
 }
 
-function getOffersList(offers){
-
-  console.log(offers);
-  const selectedOffersStrings = offers.map((selectedOffer) => /*html*/`<li class="event__offer">
-    <span
-    class="event__offer-title">
-    ${selectedOffer.title}
-    </span>
-    +€&nbsp;
-    <span
-    class="event__offer-price">
-    ${selectedOffer.price}
-    </span>
-  </li>`);
-
-  return selectedOffersStrings.join('');
-}
 
 function getAddFavoriteButton(isFavorite){
   return /*html*/`
