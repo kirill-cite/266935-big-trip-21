@@ -1,9 +1,10 @@
-import { render, RenderPosition, replace } from '../framework/render.js';
+import { render, RenderPosition } from '../framework/render.js';
 import BoardView from '../view/board-view.js';
 import SortView from '../view/sort-view.js';
 import PointsListView from '../view/points-list-view.js';
 import NoPointView from '../view/no-point-view.js';
 import PointPresenter from './point-presenter.js';
+import { updateItem } from '../utils/common.js';
 
 
 export default class BoardPresenter {
@@ -27,6 +28,11 @@ export default class BoardPresenter {
     this.#boardPoints = [...this.#pointsModel.points];
     this.#renderBoard();
   }
+
+  #handlePointChange = (updatedPoint) => {
+    this.#boardPoints = updateItem(this.#boardPoints, updatedPoint);
+    this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
+  };
 
   #renderSort() {
     render(this.#sortComponent, this.#boardComponent.element, RenderPosition.AFTERBEGIN);
