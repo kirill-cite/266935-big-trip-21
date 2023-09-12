@@ -1,10 +1,10 @@
+import { render, RenderPosition, replace } from '../framework/render.js';
 import BoardView from '../view/board-view.js';
 import SortView from '../view/sort-view.js';
 import PointsListView from '../view/points-list-view.js';
-import PointView from '../view/point-view.js';
-import PointEditView from '../view/point-edit-view.js';
 import NoPointView from '../view/no-point-view.js';
-import { render, RenderPosition, replace } from '../framework/render.js';
+import PointPresenter from './point-presenter.js';
+
 
 export default class BoardPresenter {
   #boardContainer = null;
@@ -32,41 +32,11 @@ export default class BoardPresenter {
   }
 
   #renderPoint(point){
-    const escKeyDownHandler = (evt) => {
-      if (evt.key === 'Escape') {
-        evt.preventDefault();
-        replaceFormToCard();
-        document.removeEventListener('keydown', escKeyDownHandler);
-      }
-    };
-    const pointComponent = new PointView({
-      point,
-      onEditClick: () => {
-        replaceCardToForm();
-        document.addEventListener('keydown', escKeyDownHandler);
-      }
-    });
-    const pointEditComponent = new PointEditView({
-      point,
-      onFormSubmit: () => {
-        replaceFormToCard();
-        document.removeEventListener('keydown', escKeyDownHandler);
-      },
-      onRollUpClick: () => {
-        replaceFormToCard();
-        document.removeEventListener('keydown', escKeyDownHandler);
-      }
+    const pointPresenter = new PointPresenter({
+      pointListContainer: this.#pointsListComponent.element,
     });
 
-    function replaceCardToForm() {
-      replace(pointEditComponent, pointComponent);
-    }
-
-    function replaceFormToCard() {
-      replace(pointComponent, pointEditComponent);
-    }
-
-    render(pointComponent, this.#pointsListComponent.element);
+    pointPresenter.init(point);
   }
 
   #renderPoints() {
