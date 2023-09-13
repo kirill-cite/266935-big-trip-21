@@ -69,10 +69,10 @@ function sortPointDay(pointA, pointB) {
 
 function sortPointTime(pointA, pointB) {
   if (pointA.dateFrom === null || pointA.dateTo === null) {
-    return -1;
+    return 1;
   }
   if (pointB.dateFrom === null || pointB.dateTo === null) {
-    return -1;
+    return 1;
   }
 
   return dayjs(pointB.dateTo).diff(dayjs(pointB.dateFrom)) - dayjs(pointA.dateTo).diff(dayjs(pointA.dateFrom));

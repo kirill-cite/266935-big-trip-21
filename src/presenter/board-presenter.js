@@ -5,6 +5,8 @@ import PointsListView from '../view/points-list-view.js';
 import NoPointView from '../view/no-point-view.js';
 import PointPresenter from './point-presenter.js';
 import { updateItem } from '../utils/common.js';
+import { sortPointDay, sortPointTime, sortPointPrice } from '../utils/point.js';
+import { SortType } from '../const.js';
 
 
 export default class BoardPresenter {
@@ -18,6 +20,8 @@ export default class BoardPresenter {
 
   #boardPoints = [];
   #pointPresenters = new Map();
+  #currentSortType = SortType.DAY;
+  #sourcedBoardPoints = [];
 
   constructor({boardContainer, pointsModel}) {
     this.#boardContainer = boardContainer;
@@ -26,6 +30,9 @@ export default class BoardPresenter {
 
   init() {
     this.#boardPoints = [...this.#pointsModel.points];
+    //сохраняем массив точек в исходном виде, так как sort меняет исходный массив
+    this.#sourcedBoardPoints = [...this.#pointsModel.points];
+
     this.#renderBoard();
   }
 
@@ -35,20 +42,47 @@ export default class BoardPresenter {
 
   #handlePointChange = (updatedPoint) => {
     this.#boardPoints = updateItem(this.#boardPoints, updatedPoint);
+    this.#sourcedBoardPoints = updateItem(this.#sourcedBoardPoints, updatedPoint);
     this.#pointPresenters.get(updatedPoint.id).init(updatedPoint);
   };
 
+  #sortPoints(sortType) {
+    // 2. Этот исходный массив задач необходим,
+    // потому что для сортировки мы будем мутировать
+    // массив в свойстве _boardTasks
+    switch (sortType) {
+      case SortType.DAY:
+        this.#boardPoints.sort(sortPointDay);
+        break;
+      case SortType.TIME:
+        this.#boardPoints.sort(sortPointTime);
+        break;
+      case SortType.PRICE:
+        this.#boardPoints.sort(sortPointPrice);
+        break;
+    }
+
+    this.#currentSortType = sortType;
+  }
+
   #handleSortTypeChange = (sortType) => {
-    // - Сортируем задачи
+    if (this.#currentSortType === sortType) {
+      return;
+    }
+
+    //выполняет сортировку
+    this.#sortPoints(sortType);
     // - Очищаем список
+    this.#clearPointList();
     // - Рендерим список заново
+    this.#renderPointList();
   };
 
   #renderSort() {
     this.#sortComponent = new SortView({
       onSortTypeChange: this.#handleSortTypeChange
     });
-    
+
     render(this.#sortComponent, this.#boardComponent.element, RenderPosition.AFTERBEGIN);
   }
 
