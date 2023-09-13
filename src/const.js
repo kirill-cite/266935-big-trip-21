@@ -5,10 +5,10 @@ const FilterType = {
   PAST: 'past',
 };
 
-const sortType = {
+const SortType = {
   DAY: 'day',
   TIME: 'time',
   PRICE: 'price'
 };
 
-export { FilterType, sortType };
+export { FilterType, SortType };
