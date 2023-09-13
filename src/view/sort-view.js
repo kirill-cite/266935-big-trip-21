@@ -50,11 +50,13 @@ export default class SortView extends AbstractView {
   }
 
   #sortTypeChangeHandler = (evt) => {
-    if (evt.target.tagname !== 'LABEL') {
+    console.log(evt.target.tagName);
+    if (evt.target.tagName !== 'LABEL') {
       return;
     }
 
     evt.preventDefault();
+    console.log(evt.target.dataset.sortType);
     this.#handleSortTypeChange(evt.target.dataset.sortType);
   };
 }

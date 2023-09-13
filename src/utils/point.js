@@ -62,26 +62,23 @@ function getWeightForNullDate(dateA, dateB) {
 }
 
 function sortPointDay(pointA, pointB) {
-  const weight = getWeightForNullDate(pointA.dateFrom, pointB.dateFrom);
+  const weight = getWeightForNullDate(pointB.dateFrom, pointA.dateFrom);
 
-  return weight ?? dayjs(pointA.dateFrom).diff(dayjs(pointB.dateFrom));
+  return weight ?? dayjs(pointB.dateFrom).diff(dayjs(pointA.dateFrom));
 }
 
 function sortPointTime(pointA, pointB) {
-  if (pointA.dateFrom === null || pointA.dateTo === null) {
-    return 1;
-  }
-  if (pointB.dateFrom === null || pointB.dateTo === null) {
-    return 1;
-  }
-
+  const dat1 = dayjs(pointB.dateTo);
+  const dat2 = dayjs(pointB.dateFrom);
+  const ms = dat1.diff(dat2);
+  console.log(ms);
   return dayjs(pointB.dateTo).diff(dayjs(pointB.dateFrom)) - dayjs(pointA.dateTo).diff(dayjs(pointA.dateFrom));
 }
 
 function sortPointPrice(pointA, pointB) {
-  const weight = getWeightForNullDate(pointA.price, pointB.price);
+  const weight = getWeightForNullDate(pointA.basePrice, pointB.basePrice);
 
-  return weight ?? pointB.price - pointA.price;
+  return weight ?? pointB.basePrice - pointA.basePrice;
 }
 
 export { formatDate, formatTime, formatDuration, isPointFuture, isPointPresent, isPointPast, sortPointDay, sortPointTime, sortPointPrice };
