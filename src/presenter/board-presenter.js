@@ -70,11 +70,9 @@ export default class BoardPresenter {
       return;
     }
 
-    //перерисовывает компонент SortView с выбранной сортировкой
-    //this.#renderSort(this.#currentSortType);
-    //выполняет сортировку
- 
+    // - Выполняет сортировку
     this.#sortPoints(sortType);
+    // - Перерисовывает компонент SortView с выбранной сортировкой
     remove(this.#sortComponent);
     this.#renderSort(this.#currentSortType);
     // - Очищаем список
