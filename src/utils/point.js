@@ -43,4 +43,45 @@ function isPointPast(dateTo){
   return dayjs().isAfter(dateTo);
 }
 
-export { formatDate, formatTime, formatDuration, isPointFuture, isPointPresent, isPointPast };
+// Функция помещает задачи без даты в конце списка,
+// возвращая нужный вес для колбэка sort
+function getWeightForNullDate(dateA, dateB) {
+  if (dateA === null && dateB === null) {
+    return 0;
+  }
+
+  if (dateA === null) {
+    return 1;
+  }
+
+  if (dateB === null) {
+    return -1;
+  }
+
+  return null;
+}
+
+function sortPointDay(pointA, pointB) {
+  const weight = getWeightForNullDate(pointA.dateFrom, pointB.dateFrom);
+
+  return weight ?? dayjs(pointA.dateFrom).diff(dayjs(pointB.dateFrom));
+}
+
+function sortPointTime(pointA, pointB) {
+  if (pointA.dateFrom === null || pointA.dateTo === null) {
+    return -1;
+  }
+  if (pointB.dateFrom === null || pointB.dateTo === null) {
+    return -1;
+  }
+
+  return dayjs(pointB.dateTo).diff(dayjs(pointB.dateFrom)) - dayjs(pointA.dateTo).diff(dayjs(pointA.dateFrom));
+}
+
+function sortPointPrice(pointA, pointB) {
+  const weight = getWeightForNullDate(pointA.price, pointB.price);
+
+  return weight ?? pointB.price - pointA.price;
+}
+
+export { formatDate, formatTime, formatDuration, isPointFuture, isPointPresent, isPointPast, sortPointDay, sortPointTime, sortPointPrice };
