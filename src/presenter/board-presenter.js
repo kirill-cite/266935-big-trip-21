@@ -1,4 +1,4 @@
-import { render, RenderPosition } from '../framework/render.js';
+import { render, RenderPosition, remove } from '../framework/render.js';
 import BoardView from '../view/board-view.js';
 import SortView from '../view/sort-view.js';
 import PointsListView from '../view/points-list-view.js';
@@ -70,17 +70,23 @@ export default class BoardPresenter {
       return;
     }
 
+    //перерисовывает компонент SortView с выбранной сортировкой
+    //this.#renderSort(this.#currentSortType);
     //выполняет сортировку
+ 
     this.#sortPoints(sortType);
+    remove(this.#sortComponent);
+    this.#renderSort(this.#currentSortType);
     // - Очищаем список
     this.#clearPointList();
     // - Рендерим список заново
     this.#renderPointList();
   };
 
-  #renderSort() {
+  #renderSort(sortType) {
     this.#sortComponent = new SortView({
-      onSortTypeChange: this.#handleSortTypeChange
+      onSortTypeChange: this.#handleSortTypeChange,
+      sortType: sortType
     });
 
     render(this.#sortComponent, this.#boardComponent.element, RenderPosition.AFTERBEGIN);
@@ -123,7 +129,7 @@ export default class BoardPresenter {
       return;
     }
 
-    this.#renderSort();
+    this.#renderSort(this.#currentSortType);
     this.#renderPointList();
   }
 }

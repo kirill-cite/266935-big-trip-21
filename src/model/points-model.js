@@ -11,7 +11,7 @@ export default class PointsModel {
   #convertedPoints = this.#points.map((point) => ({
     id: point.id,
     basePrice: point.base_price,
-    dateFrom: point.date_to,
+    dateFrom: point.date_from,
     dateTo: point.date_to,
     destinationId: point.destination_id,
     isFavorite: point.is_favorite,
