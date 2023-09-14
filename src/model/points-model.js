@@ -38,7 +38,10 @@ export default class PointsModel {
       price: offer.price,
       isSelected: point.offerIds.includes(offer.id)
     })),
-    type: point.type
+    types: this.#offers.map((offer) => ({
+      name: offer.type,
+      isSelected: offer.type === point.type
+    }))
   }));
 
   get points() {

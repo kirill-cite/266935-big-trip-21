@@ -37,14 +37,14 @@ export default class PointView extends AbstractView {
 
 function createPointViewTemplate(point) {
 
-  const { basePrice, dateFrom, dateTo, destinations, isFavorite, offers, type } = point;
+  const { basePrice, dateFrom, dateTo, destinations, isFavorite, offers, types } = point;
 
   return /*html*/`
     <li class="trip-events__item">
       <div class="event">
         ${getEventDate(dateFrom)}
-        ${getEventIcon(type)}
-        ${getEventTitle(type, destinations)}
+        ${getEventIcon(types)}
+        ${getEventTitle(types, destinations)}
         ${getSchedule(dateFrom, dateTo)}
         ${getPrice(basePrice)}
         ${getSelectedOffers(offers)}
@@ -60,23 +60,23 @@ function getEventDate(dateFrom){
   `;
 }
 
-function getEventIcon(type){
+function getEventIcon(types){
   return /*html*/`
   <div class="event__type">
     <img
       class="event__type-icon"
       width="42"
       height="42"
-      src="img/icons/${type}.png"
+      src="img/icons/${types.find((type) => type.isSelected).name}.png"
       alt="Event type icon">
   </div>
   `;
 }
 
-function getEventTitle(type, destinations){
+function getEventTitle(types, destinations){
   return /*html*/`
   <h3 class="event__title">
-    ${type}
+    ${types.find((type) => type.isSelected).name}
     ${getDestination(destinations)}
   </h3>
   `;

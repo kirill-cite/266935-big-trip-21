@@ -47,14 +47,14 @@ export default class PointEditView extends AbstractView {
 }
 
 function createEditPointViewTemplate(point) {
-  const {basePrice, dateFrom, dateTo, destinations, offers, type} = point;
+  const {basePrice, dateFrom, dateTo, destinations, offers, types } = point;
 
   return /*html*/`
     <li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
         <header class="event__header">
-          ${getEventWrapper(type, offers)}
-          ${getDestinations(type, destinations)}
+          ${getEventWrapper(types)}
+          ${getDestinations(types, destinations)}
           ${getEventTime(dateFrom, dateTo)}
           ${getBasePrice(basePrice)}
           ${getSaveButton()}
@@ -69,7 +69,7 @@ function createEditPointViewTemplate(point) {
    </li>`;
 }
 
-function getEventWrapper(type, offers){
+function getEventWrapper(types){
   return /*html*/`
     <div class="event__type-wrapper">
       <label
@@ -83,7 +83,7 @@ function getEventWrapper(type, offers){
           class="event__type-icon"
           width="17"
           height="17"
-          src="img/icons/${type}.png"
+          src="img/icons/${types.find((type) => type.isSelected).name}.png"
           alt="Event type icon">
       </label>
       <input
@@ -98,42 +98,42 @@ function getEventWrapper(type, offers){
             class="visually-hidden">
             Event type
           </legend>
-          ${getSelectedOffer(offers)}
+          ${getPointNamesString(types)}
         </fieldset>
       </div>
     </div>
   `;
 }
 
-function getSelectedOffer(offers){
-  const selectedOffers = offers.map((offer) => /*html*/ `
-    <div
+function getPointNamesString(types) {
+  const pointNames = types.map((type) => /*html*/`
+    <div 
       class="event__type-item">
-      <input
-        id="event-type-${offer.title}-1"
-        class="event__type-input  visually-hidden"
-        type="radio"
-        name="event-type"
-        value="${offer.title}"
-        ${offer.isSelected ? 'checked' : ''}>
-      <label
-        class="event__type-label  event__type-label--${offer.title}"
-        for="event-type-${offer.title}-1">
-        ${offer.title[0].toUpperCase() + offer.title.slice(1)}
+      <input 
+        id="event-type-${type.name}-1" 
+        class="event__type-input  visually-hidden" 
+        type="radio" 
+        name="event-type" 
+        value="${type.name}">
+      <label 
+        class="event__type-label  event__type-label--${type.name}" 
+        for="event-type-${type.name}-1">
+        ${type.name[0].toUpperCase() + type.name.slice(1)}
       </label>
-    </div>`);
+    </div>
+  `);
 
-  return selectedOffers.join('');
+  return pointNames.join('');
 }
 
-function getDestinations(type, destinations){
+function getDestinations(types, destinations){
   return /*html*/`
   <div
     class="event__field-group  event__field-group--destination">
     <label
       class="event__label  event__type-output"
       for="event-destination-1">
-      ${type}
+      ${types.find((type) => type.isSelected).name}
     </label>
     <input
       class="event__input  event__input--destination"
