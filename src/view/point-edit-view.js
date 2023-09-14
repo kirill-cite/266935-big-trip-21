@@ -114,7 +114,8 @@ function getPointNamesString(types) {
         class="event__type-input  visually-hidden" 
         type="radio" 
         name="event-type" 
-        value="${type.name}">
+        value="${type.name}"
+        ${type.isSelected ? 'checked' : ''}>
       <label 
         class="event__type-label  event__type-label--${type.name}" 
         for="event-type-${type.name}-1">
