@@ -27,7 +27,7 @@ class AppModel extends Model {
      * @type {Record<FilterType, (point: PointModel) => boolean>}
      */
     this.filterCallbacks = {
-      everything: () => true,
+      everything: () => false,
       future: (point) => point.dateFromInMs > Date.now(),
       present: (point) => point.dateFromInMs <= Date.now() && point.dateToInMs >= Date.now(),
       past: (point) => point.dateToInMs < Date.now()
