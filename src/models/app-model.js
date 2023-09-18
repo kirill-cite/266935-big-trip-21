@@ -114,6 +114,18 @@ class AppModel extends Model {
   }
 
   /**
+   * @param {String} id
+   * @returns {Promise<void>}
+   */
+  async deletePoint(id) {
+    //TODO: нужно удалить данные на сервере
+
+    const index = this.points.findIndex((point) => point.id === id);
+
+    this.points.splice(index, 1);
+  }
+
+  /**
    * @returns {Array<Destination>}
    */
   getDestinations() {
