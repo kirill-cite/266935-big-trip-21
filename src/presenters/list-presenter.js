@@ -164,6 +164,16 @@ class ListPresenter extends Presenter {
 
     if(input.name === 'event-price') {
       editor.state.basePrice = Number(input.value);
+      return;
+    }
+
+    if(input.name === 'event-offer') {
+      editor.state.offers.some((offer) => {
+        if(offer.id === input.id) {
+          offer.isSelected = !offer.isSelected;
+          return true;
+        }
+      });
     }
 
   }
