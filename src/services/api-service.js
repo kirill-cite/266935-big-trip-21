@@ -33,7 +33,7 @@ class ApiService extends Service {
   }
 
   /**
-   * @returns {Promise<Array<Point>>}
+   * @returns {Promise<Array<OfferGroup>>}
    */
   async getOfferGroups(){
     const response = await this.request('offers');
