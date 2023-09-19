@@ -4,9 +4,9 @@ import View from './view.js';
 import { html, createCalendar } from '../utilities.js';
 
 /**
- *@typedef {import('./list-view').ItemState} State
+ * @typedef {import('./list-view').ItemState} State
  *
- *@extends {View<State>}
+ * @extends {View<State>}
  */
 
 class EditorView extends View {
