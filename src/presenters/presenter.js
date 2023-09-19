@@ -16,7 +16,7 @@ class Presenter {
     this.navigation = navigation;
     this.navigation.addEventListener('change', this.onNavigationChange.bind(this));
 
-    window.queueMicrotask(this.onReady.bind(this)));
+    window.queueMicrotask(this.onReady.bind(this));
   }
 
   /**
