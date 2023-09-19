@@ -1,4 +1,5 @@
 import Service from './service.js';
+import {sanitize} from '../utilities.js';
 
 class ApiService extends Service {
   /**
@@ -18,7 +19,8 @@ class ApiService extends Service {
    */
   async getPoints(){
     const response = await this.request('points');
-    return response.json();
+
+    return sanitize(await response.json());
   }
 
   /**
@@ -26,7 +28,8 @@ class ApiService extends Service {
    */
   async getDestinations(){
     const response = await this.request('destinations');
-    return response.json();
+
+    return sanitize(await response.json());
   }
 
   /**
@@ -34,7 +37,8 @@ class ApiService extends Service {
    */
   async getOfferGroups(){
     const response = await this.request('offers');
-    return response.json();
+
+    return sanitize(await response.json());
   }
 }
 
