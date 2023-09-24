@@ -79,6 +79,17 @@ function formatNumber(value){
   return value.toLocaleString();
 }
 
+/**
+ * @param {Array<string>} items
+ * @returns {string}
+ */
+function formatList(items) {
+  if (items.length > 3) {
+    return `${items[0]}  — ... — ${items[items.length - 1]}`;
+  }
+
+  return items.join(' — ');
+}
 
 /**
  * @param {TemplateStringsArray} strings
@@ -126,4 +137,11 @@ function sanitize(data) {
   }
 }
 
-export { html, formatDate, formatTime, formatDuration, formatNumber, createCalendar, sanitize };
+export { html,
+  formatDate,
+  formatTime,
+  formatDuration,
+  formatList,
+  formatNumber,
+  createCalendar,
+  sanitize };
