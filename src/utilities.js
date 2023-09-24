@@ -54,7 +54,6 @@ function formatDateRange(valueFrom, valueTo) {
   ].join(' — ');
 }
 
-
 /**
  * @param {dayjs.ConfigType} value
  * @param {boolean} [isNarrow]
