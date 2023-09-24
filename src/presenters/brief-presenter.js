@@ -20,7 +20,27 @@ class BriefPresenter extends Presenter {
    * @override
    */
   updateView() {
-    this.view.render();
+    this.view.setState({
+      destinationNames: this.getDestinationNames(),
+    });
+  }
+
+  /**
+   * @returns {Array<string>}
+   */
+  getDestinationNames() {
+    const points = this.model.getPoints();
+    const destinations = this.model.getDestinations();
+
+    return points.map((point) => {
+      const {name} = destinations.find(({id}) => id === point.destinationId);
+
+      return name;
+
+    }).filter((name, index, names) => {
+      const next = names[index + 1];
+      return name !== next;
+    });
   }
 }
 
