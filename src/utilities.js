@@ -36,11 +36,31 @@ function createCalendar(inputFrom, inputTo) {
 }
 
 /**
- * @param {dayjs.ConfigType} value
+ * @param {dayjs.ConfigType} valueFrom
+ * @param {dayjs.ConfigType} valueTo
  * @returns {string}
  */
-function formatDate(value) {
-  return dayjs(value).format('MMM D');
+function formatDateRange(valueFrom, valueTo) {
+  valueFrom = dayjs(valueFrom);
+  valueTo = dayjs(valueTo);
+
+  if (valueFrom.isSame(valueTo, 'day')) {
+    return formatDate(valueFrom);
+  }
+
+  return [
+    formatDate(valueFrom, valueFrom.isSame(valueTo, 'month')),
+    formatDate(valueTo)
+  ].join(' — ');
+}
+
+/**
+ * @param {dayjs.ConfigType} value
+ * @param {boolean} [isNarrow]
+ * @returns {string}
+ */
+function formatDate(value, isNarrow) {
+  return dayjs(value).format(isNarrow ? 'D' : 'D MMM');
 }
 
 /**
@@ -79,6 +99,17 @@ function formatNumber(value){
   return value.toLocaleString();
 }
 
+/**
+ * @param {Array<string>} items
+ * @returns {string}
+ */
+function formatList(items) {
+  if (items.length > 3) {
+    return `${items[0]}  — ... — ${items[items.length - 1]}`;
+  }
+
+  return items.join(' — ');
+}
 
 /**
  * @param {TemplateStringsArray} strings
@@ -126,4 +157,12 @@ function sanitize(data) {
   }
 }
 
-export { html, formatDate, formatTime, formatDuration, formatNumber, createCalendar, sanitize };
+export { html,
+  formatDateRange,
+  formatDate,
+  formatTime,
+  formatDuration,
+  formatList,
+  formatNumber,
+  createCalendar,
+  sanitize };
