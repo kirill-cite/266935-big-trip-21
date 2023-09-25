@@ -1,5 +1,5 @@
 import View from './view.js';
-import {formatDateRange, formatList, formatNumber, html} from '../utilities.js';
+import {formatDateRange, formatList, html} from '../utilities.js';
 
 /**
  * @typedef {{
