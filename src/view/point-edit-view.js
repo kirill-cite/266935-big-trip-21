@@ -1,4 +1,4 @@
-import AbstractView from '../framework/view/abstract-view.js';
+import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
 
 const BLANK_POINT = {
   id: 'ca080532-411e-4021-1234-93bb8b7ad7ea',
@@ -11,17 +11,13 @@ const BLANK_POINT = {
   type: 'ship'
 };
 
-export default class PointEditView extends AbstractView {
-  #point = null;
-  #destinations = null;
-  #offers = null;
+export default class PointEditView extends AbstractStatefulView {
   #handleFormSubmit = null;
   #handleRollUpClick = null;
 
   constructor({point = BLANK_POINT, onFormSubmit, onRollUpClick}){
     super();
-
-    this.#point = point;
+    this._setState(point);
     this.#handleFormSubmit = onFormSubmit;
     this.#handleRollUpClick = onRollUpClick;
 
@@ -29,20 +25,27 @@ export default class PointEditView extends AbstractView {
       .addEventListener('submit', this.#formSubmitHandler);
     this.element.querySelector('.event__rollup-btn')
       .addEventListener('click', this.#rollUpHandler);
+    this.element.querySelector('.event__type-list')
+      .addEventListener('change', this.#eventTypeChangeHandler);
   }
 
   get template() {
-    return createEditPointViewTemplate(this.#point, this.#destinations, this.#offers);
+    return createEditPointViewTemplate(this._state);
   }
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormSubmit(this.#point);
+    this.#handleFormSubmit(this._state);
   };
 
   #rollUpHandler = (evt) => {
     evt.preventDefault();
     this.#handleRollUpClick();
+  };
+
+  #eventTypeChangeHandler = (evt) => {
+    evt.preventDefault();
+    console.log(evt.target.value);
   };
 }
 
