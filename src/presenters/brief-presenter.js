@@ -22,6 +22,8 @@ class BriefPresenter extends Presenter {
   updateView() {
     this.view.setState({
       destinationNames: this.getDestinationNames(),
+      dateFrom: this.getDateFrom(),
+      dateTo: this.getDateTo()
     });
   }
 
@@ -41,6 +43,24 @@ class BriefPresenter extends Presenter {
       const next = names[index + 1];
       return name !== next;
     });
+  }
+
+  /**
+   * @returns {String}
+   */
+  getDateFrom() {
+    const points = this.model.getPoints();
+
+    return points.at(0)?.dateFrom;
+  }
+
+  /**
+   * @returns {String}
+   */
+  getDateTo() {
+    const points = this.model.getPoints();
+
+    return points.at(-1)?.dateTo;
   }
 }
 
