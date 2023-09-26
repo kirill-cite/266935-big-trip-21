@@ -48,12 +48,13 @@ class ListView extends View {
    * @override
    */
   render() {
-    const views = this.state.items.map((item) => {
+    const views = this.state.items.map((item, index) => {
       const view = item.isEditable === true ? new EditorView() : new CardView();
 
       view.classList.add('trip-events__item');
       view.setAttribute('role', 'listitem');
       view.setState(item);
+      view.fadeInLeft({delay: 100 * index});
 
       return view;
     });
