@@ -11,5 +11,8 @@
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enabled": "always",
 
-  "cSpell.language": "en,ru"
+  "cSpell.language": "en,ru",
+  "cSpell.words": [
+    "listitem"
+  ]
 }
