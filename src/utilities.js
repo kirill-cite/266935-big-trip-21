@@ -11,7 +11,7 @@ dayjs.extend(durationPlugin);
  * @param {HTMLInputElement} inputTo
  * @return {Function}
  */
-function createCalendar(inputFrom, inputTo) {
+function createCalendars(inputFrom, inputTo) {
   /**
    * @type { import ('flatpickr/dist/types/options').Options }
    */
@@ -164,5 +164,5 @@ export { html,
   formatDuration,
   formatList,
   formatNumber,
-  createCalendar,
+  createCalendars,
   sanitize };
