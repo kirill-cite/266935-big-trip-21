@@ -37,7 +37,7 @@ export default class PointView extends AbstractView {
 
 function createPointViewTemplate(point) {
 
-  const { basePrice, dateFrom, dateTo, destinations, isFavorite, offers, types } = point;
+  const { basePrice, dateFrom, dateTo, destinations, isFavorite, offerGroups, types } = point;
 
   return /*html*/`
     <li class="trip-events__item">
@@ -47,7 +47,7 @@ function createPointViewTemplate(point) {
         ${getEventTitle(types, destinations)}
         ${getSchedule(dateFrom, dateTo)}
         ${getPrice(basePrice)}
-        ${getSelectedOffers(offers)}
+        ${getSelectedOffers(offerGroups)}
         ${getAddFavoriteButton(isFavorite)}
         ${getOpenEditButton()}
       </div>
@@ -109,11 +109,11 @@ function getPrice(basePrice){
   `;
 }
 
-function getSelectedOffers(offers){
+function getSelectedOffers(offerGroups) { 
   return /*html*/`
   <h4 class="visually-hidden">Offers:</h4>
   <ul class="event__selected-offers">
-    ${offers.map((offer) => offer.isSelected ? /*html*/
+    ${getSelectedOfferGroup(offerGroups).map((offer) => offer.isSelected ? /*html*/
     `<li class="event__offer">
         <span
         class="event__offer-title">
@@ -128,6 +128,10 @@ function getSelectedOffers(offers){
     .join('')}
   </ul>
   `;
+}
+
+function getSelectedOfferGroup(offerGroups) {
+  return offerGroups.find((offerGroup) => offerGroup.isSelected).offers;
 }
 
 

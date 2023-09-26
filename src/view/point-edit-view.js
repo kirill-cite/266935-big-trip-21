@@ -27,6 +27,8 @@ export default class PointEditView extends AbstractStatefulView {
       .addEventListener('click', this.#rollUpHandler);
     this.element.querySelector('.event__type-list')
       .addEventListener('change', this.#eventTypeChangeHandler);
+    this.element.querySelector('.event__input')
+      .addEventListener('change', this.#eventDestinationChangeHandler);
   }
 
   get template() {
@@ -45,12 +47,29 @@ export default class PointEditView extends AbstractStatefulView {
 
   #eventTypeChangeHandler = (evt) => {
     evt.preventDefault();
+    this.updateElement({
+      offers: this._state.offers?.find((offer) => offer.type === evt.target.value).offers.map((offer) => ({
+        id: offer.id,
+        title: offer.title,
+        price: offer.price,
+        isSelected: offer.offerIds.includes(offer.id)
+      })),
+      types: this._state.types.map((type) => ({
+        name: type.name,
+        isSelected: type.name === evt.target.value
+      })),
+    });
+    console.log(evt.target.value);
+  };
+
+  #eventDestinationChangeHandler = (evt) => {
+    evt.preventDefault();
     console.log(evt.target.value);
   };
 }
 
 function createEditPointViewTemplate(point) {
-  const {basePrice, dateFrom, dateTo, destinations, offers, types } = point;
+  const {basePrice, dateFrom, dateTo, destinations, offerGroups, types } = point;
 
   return /*html*/`
     <li class="trip-events__item">
@@ -65,7 +84,7 @@ function createEditPointViewTemplate(point) {
           ${getEventRollupButton()}
         </header>
         <section class="event__details">
-          ${getOffersList(offers)}
+          ${getOffersList(offerGroups)}
           ${getDestinationDescription(destinations)}
         </section>
       </form>
@@ -230,8 +249,9 @@ function getEventRollupButton(){
   `;
 }
 
-function getOffersList(offers){
-  if (offers.length === 0){
+function getOffersList(offerGroups){
+  const offerGroup = offerGroups.find((group) => group.isSelected === true);
+  if (offerGroup.offers.length === 0){
     return '';
   }
 
@@ -239,7 +259,7 @@ function getOffersList(offers){
     <section class="event__section  event__section--offers">
       <h3 class="event__section-title  event__section-title--offers">Offers</h3>
       <div class="event__available-offers">
-        ${getOffers(offers)}
+        ${getOffers(offerGroup.offers)}
       </div>
     </section>
   `;

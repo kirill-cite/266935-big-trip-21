@@ -30,6 +30,7 @@ export default class BoardPresenter {
 
   init() {
     this.#boardPoints = [...this.#pointsModel.points];
+    console.log(this.#boardPoints);
     //сохраняем массив точек в исходном виде, так как sort меняет исходный массив
     this.#sourcedBoardPoints = [...this.#pointsModel.points];
 

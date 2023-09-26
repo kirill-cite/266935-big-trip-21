@@ -32,11 +32,15 @@ export default class PointsModel {
       isSelected: point.destinationId === destination.id
     })),
     isFavorite: point.isFavorite,
-    offers: this.#offers?.find((offer) => offer.type === point.type).offers.map((offer) => ({
-      id: offer.id,
-      title: offer.title,
-      price: offer.price,
-      isSelected: point.offerIds.includes(offer.id)
+    offerGroups: this.#offers.map((offerGroup) => ({
+      type: offerGroup.type,
+      isSelected: offerGroup.type === point.type,
+      offers: offerGroup.offers.map((offer) => ({
+        id: offer.id,
+        title: offer.title,
+        price: offer.price,
+        isSelected: point.offerIds.includes(offer.id)
+      }))
     })),
     types: this.#offers.map((offer) => ({
       name: offer.type,
