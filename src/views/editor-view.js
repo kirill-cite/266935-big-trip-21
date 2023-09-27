@@ -1,7 +1,7 @@
 import './editor-view.css';
 
 import View from './view.js';
-import { html, createCalendar } from '../utilities.js';
+import { html, createCalendars } from '../utilities.js';
 
 /**
  * @typedef {import('./list-view').ItemState} State
@@ -41,7 +41,7 @@ class EditorView extends View {
     this.destroyCalendars?.();
     super.render();
     //@ts-ignore
-    this.destroyCalendars = createCalendar(...this.querySelectorAll('.event__input--time'));
+    this.destroyCalendars = createCalendars(...this.querySelectorAll('.event__input--time'));
   }
 
   /**
