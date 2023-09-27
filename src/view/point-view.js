@@ -109,7 +109,7 @@ function getPrice(basePrice){
   `;
 }
 
-function getSelectedOffers(offerGroups) { 
+function getSelectedOffers(offerGroups) {
   return /*html*/`
   <h4 class="visually-hidden">Offers:</h4>
   <ul class="event__selected-offers">

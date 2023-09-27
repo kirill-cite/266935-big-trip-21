@@ -78,4 +78,12 @@ function sortPointPrice(pointA, pointB) {
   return weight ?? pointB.basePrice - pointA.basePrice;
 }
 
-export { formatDate, formatTime, formatDuration, isPointFuture, isPointPresent, isPointPast, sortPointDay, sortPointTime, sortPointPrice };
+export { formatDate,
+  formatTime,
+  formatDuration,
+  isPointFuture,
+  isPointPresent,
+  isPointPast,
+  sortPointDay,
+  sortPointTime,
+  sortPointPrice };
