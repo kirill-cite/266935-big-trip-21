@@ -28,6 +28,12 @@ export default class PointEditView extends AbstractStatefulView {
     return createEditPointViewTemplate(this._state);
   }
 
+  reset(point) {
+    this.updateElement(
+      PointEditView.parsePointToState(point)
+    );
+  }
+
   _restoreHandlers() {
     this.element.querySelector('form')
       .addEventListener('submit', this.#formSubmitHandler);
@@ -41,7 +47,7 @@ export default class PointEditView extends AbstractStatefulView {
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormSubmit(this._state);
+    this.#handleFormSubmit(PointEditView.parseStateToPoint(this._state));
   };
 
   #rollUpHandler = (evt) => {
@@ -76,6 +82,14 @@ export default class PointEditView extends AbstractStatefulView {
       }))
     });
   };
+
+  static parsePointToState(point) {
+    return {...point};
+  }
+
+  static parseStateToPoint(state) {
+    return {...state};
+  }
 }
 
 function createEditPointViewTemplate(point) {
