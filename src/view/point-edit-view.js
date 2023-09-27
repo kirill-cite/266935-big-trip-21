@@ -21,6 +21,14 @@ export default class PointEditView extends AbstractStatefulView {
     this.#handleFormSubmit = onFormSubmit;
     this.#handleRollUpClick = onRollUpClick;
 
+    this._restoreHandlers();
+  }
+
+  get template() {
+    return createEditPointViewTemplate(this._state);
+  }
+
+  _restoreHandlers() {
     this.element.querySelector('form')
       .addEventListener('submit', this.#formSubmitHandler);
     this.element.querySelector('.event__rollup-btn')
@@ -29,10 +37,6 @@ export default class PointEditView extends AbstractStatefulView {
       .addEventListener('change', this.#eventTypeChangeHandler);
     this.element.querySelector('.event__input')
       .addEventListener('change', this.#eventDestinationChangeHandler);
-  }
-
-  get template() {
-    return createEditPointViewTemplate(this._state);
   }
 
   #formSubmitHandler = (evt) => {
@@ -47,24 +51,30 @@ export default class PointEditView extends AbstractStatefulView {
 
   #eventTypeChangeHandler = (evt) => {
     evt.preventDefault();
+
     this.updateElement({
-      offers: this._state.offers?.find((offer) => offer.type === evt.target.value).offers.map((offer) => ({
-        id: offer.id,
-        title: offer.title,
-        price: offer.price,
-        isSelected: offer.offerIds.includes(offer.id)
+      offerGroups: this._state.offerGroups.map((offerGroup) => ({
+        type: offerGroup.type,
+        isSelected: offerGroup.type === evt.target.value,
+        offers: offerGroup.offers
       })),
       types: this._state.types.map((type) => ({
         name: type.name,
         isSelected: type.name === evt.target.value
       })),
     });
-    console.log(evt.target.value);
+
   };
 
   #eventDestinationChangeHandler = (evt) => {
     evt.preventDefault();
-    console.log(evt.target.value);
+
+    this.updateElement({
+      destinations: this._state.destinations.map((destination) => ({
+        ...destination,
+        isSelected:  destination.name === evt.target.value
+      }))
+    });
   };
 }
 
@@ -282,6 +292,10 @@ function getOffers(offers){
 }
 
 function getDestinationDescription(destinations){
+  if (destinations.find((destination) => destination.isSelected).description === '') {
+    return '';
+  }
+
   return /*html*/`
   <section class="event__section  event__section--destination">
     ${getDestinationString(destinations)}
