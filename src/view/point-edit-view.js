@@ -1,4 +1,5 @@
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
+import { formatDateToISO } from '../utils/point.js';
 import flatpickr from 'flatpickr';
 
 import 'flatpickr/dist/flatpickr.min.css';
@@ -115,15 +116,16 @@ export default class PointEditView extends AbstractStatefulView {
 
   #dateFromChangeHandler = ([userDateFrom]) => {
     this._setState({
-      dateFrom: userDateFrom,
+      dateFrom: formatDateToISO(userDateFrom),
     });
+    this.#datepickerTo.set('minDate', this._state.dateFrom);
   };
 
   #dateToChangeHandler = ([userDateTo]) => {
-    console.log(userDateTo);
     this._setState({
-      dateTo: userDateTo,
+      dateTo: formatDateToISO(userDateTo),
     });
+    this.#datepickerFrom.set('maxDate', this._state.dateTo);
   };
 
   #basePriceChangeHandler = (evt) => {

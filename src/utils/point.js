@@ -7,6 +7,9 @@ dayjs.extend(durationPlugin);
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
 
+function formatDateToISO(date) {
+  return dayjs(date).toISOString();
+}
 
 function formatDate(date){
   return dayjs(date).format('MMM DD');
@@ -78,7 +81,8 @@ function sortPointPrice(pointA, pointB) {
   return weight ?? pointB.basePrice - pointA.basePrice;
 }
 
-export { formatDate,
+export { formatDateToISO,
+  formatDate,
   formatTime,
   formatDuration,
   isPointFuture,
