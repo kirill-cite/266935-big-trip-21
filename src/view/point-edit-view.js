@@ -64,6 +64,8 @@ export default class PointEditView extends AbstractStatefulView {
       .addEventListener('change', this.#eventTypeChangeHandler);
     this.element.querySelector('.event__input')
       .addEventListener('change', this.#eventDestinationChangeHandler);
+
+    this.#setDatepickers();
   }
 
   #formSubmitHandler = (evt) => {
@@ -120,18 +122,24 @@ export default class PointEditView extends AbstractStatefulView {
     this.#datepickerFrom = flatpickr(
       this.element.querySelector('#event-start-time-1'),
       {
-        dateFormat: 'd/m/Y H:i',
+        dateFormat: 'd/m/y H:i',
+        enableTime: true,
         defaultDate: this._state.dateFrom,
-        onChange: this.#dateFromChangeHandler, // На событие flatpickr передаём наш колбэк
+        maxDate: this._state.dateTo,
+        'time_24hr': true,
+        onClose: this.#dateFromChangeHandler, // На событие flatpickr передаём наш колбэк
       },
     );
 
     this.#datepickerTo = flatpickr(
       this.element.querySelector('#event-end-time-1'),
       {
-        dateFormat: 'd/m/Y H:i',
+        dateFormat: 'd/m/y H:i',
+        enableTime: true,
         defaultDate: this._state.dateTo,
-        onChange: this.#dateToChangeHandler, // На событие flatpickr передаём наш колбэк
+        minDate: this._state.dateFrom,
+        'time_24hr': true,
+        onClose: this.#dateToChangeHandler, // На событие flatpickr передаём наш колбэк
       },
     );
   }
@@ -157,7 +165,7 @@ function createEditPointViewTemplate(point) {
           ${getDestinations(types, destinations)}
           ${getEventTime(dateFrom, dateTo)}
           ${getBasePrice(basePrice)}
-          ${getSaveButton()}
+          ${getSaveButton(dateFrom, dateTo)}
           ${getDeleteButton()}
           ${getEventRollupButton()}
         </header>
