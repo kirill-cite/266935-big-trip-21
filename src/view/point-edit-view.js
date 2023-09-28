@@ -17,6 +17,8 @@ const BLANK_POINT = {
 export default class PointEditView extends AbstractStatefulView {
   #handleFormSubmit = null;
   #handleRollUpClick = null;
+  #datepickerFrom = null;
+  #datepickerTo = null;
 
   constructor({point = BLANK_POINT, onFormSubmit, onRollUpClick}){
     super();
@@ -29,6 +31,22 @@ export default class PointEditView extends AbstractStatefulView {
 
   get template() {
     return createEditPointViewTemplate(this._state);
+  }
+
+  // Перегружаем метод родителя removeElement,
+  // чтобы при удалении удалялся более не нужный календарь
+  removeElement() {
+    super.removeElement();
+
+    if (this.#datepickerFrom) {
+      this.#datepickerFrom.destroy();
+      this.#datepickerFrom = null;
+    }
+
+    if (this.#datepickerTo) {
+      this.#datepickerTo.destroy();
+      this.#datepickerTo = null;
+    }
   }
 
   reset(point) {
@@ -85,6 +103,39 @@ export default class PointEditView extends AbstractStatefulView {
       }))
     });
   };
+
+  #dateFromChangeHandler = ([userDateFrom]) => {
+    this.updateElement({
+      dateFrom: userDateFrom,
+    });
+  };
+
+  #dateToChangeHandler = ([userDateTo]) => {
+    this.updateElement({
+      dateTo: userDateTo,
+    });
+  };
+
+  #setDatepickers() {
+    this.#datepickerFrom = flatpickr(
+      this.element.querySelector('#event-start-time-1'),
+      {
+        dateFormat: 'd/m/Y H:i',
+        defaultDate: this._state.dateFrom,
+        onChange: this.#dateFromChangeHandler, // На событие flatpickr передаём наш колбэк
+      },
+    );
+
+    this.#datepickerTo = flatpickr(
+      this.element.querySelector('#event-end-time-1'),
+      {
+        dateFormat: 'd/m/Y H:i',
+        defaultDate: this._state.dateTo,
+        onChange: this.#dateToChangeHandler, // На событие flatpickr передаём наш колбэк
+      },
+    );
+  }
+
 
   static parsePointToState(point) {
     return {...point};
