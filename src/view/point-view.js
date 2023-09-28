@@ -87,6 +87,7 @@ function getDestination(destinations){
 }
 
 function getSchedule(dateFrom, dateTo){
+
   return /*html*/`
   <div class="event__schedule">
     <p class="event__time">

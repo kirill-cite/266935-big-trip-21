@@ -13,7 +13,7 @@ function formatDate(date){
 }
 
 function formatTime(date){
-  return dayjs(date).format('HH:mm');
+  return dayjs(date).format('hh:mm');
 }
 
 function formatDuration(dateFrom, dateTo){
