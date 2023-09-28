@@ -10,12 +10,6 @@ import {html} from '../utilities.js';
  */
 
 class PlaceholderView extends View {
-  constructor() {
-    super();
-
-    // this.classList.add('class1', 'class2');
-  }
-
   /**
    * @override
    */

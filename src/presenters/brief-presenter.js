@@ -75,12 +75,7 @@ class BriefPresenter extends Presenter {
     return points.reduce((totalCost, point) => {
       const {offers} = offerGroups.find((offerGroup) => offerGroup.type === point.type);
 
-      const pointCost = offers.reduce((cost, offer) => {
-        if (point.offerIds.includes(offer.id)){
-          return cost + offer.price;
-        }
-        return cost;
-      }, point.basePrice);
+      const pointCost = offers.reduce((cost, offer) => (point.offerIds.includes(offer.id) ? cost + offer.price : cost), point.basePrice);
 
       return totalCost + pointCost;
 
