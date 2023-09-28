@@ -22,7 +22,7 @@ export default class PointEditView extends AbstractStatefulView {
 
   constructor({point = BLANK_POINT, onFormSubmit, onRollUpClick}){
     super();
-    this._setState(point);
+    this._setState(PointEditView.parsePointToState(point));
     this.#handleFormSubmit = onFormSubmit;
     this.#handleRollUpClick = onRollUpClick;
 
@@ -64,6 +64,10 @@ export default class PointEditView extends AbstractStatefulView {
       .addEventListener('change', this.#eventTypeChangeHandler);
     this.element.querySelector('.event__input')
       .addEventListener('change', this.#eventDestinationChangeHandler);
+    this.element.querySelector('.event__input--price')
+      .addEventListener('change', this.#basePriceChangeHandler);
+    this.element.querySelector('.event__section--offers')
+      ?.addEventListener('change', this.#offerChangeHandler);
 
     this.#setDatepickers();
   }
@@ -85,7 +89,10 @@ export default class PointEditView extends AbstractStatefulView {
       offerGroups: this._state.offerGroups.map((offerGroup) => ({
         type: offerGroup.type,
         isSelected: offerGroup.type === evt.target.value,
-        offers: offerGroup.offers
+        offers: offerGroup.offers.map((offer) => ({
+          ...offer,
+          isSelected: false
+        }))
       })),
       types: this._state.types.map((type) => ({
         name: type.name,
@@ -107,14 +114,38 @@ export default class PointEditView extends AbstractStatefulView {
   };
 
   #dateFromChangeHandler = ([userDateFrom]) => {
-    this.updateElement({
+    this._setState({
       dateFrom: userDateFrom,
     });
   };
 
   #dateToChangeHandler = ([userDateTo]) => {
-    this.updateElement({
+    console.log(userDateTo);
+    this._setState({
       dateTo: userDateTo,
+    });
+  };
+
+  #basePriceChangeHandler = (evt) => {
+    evt.preventDefault();
+
+    this._setState({
+      basePrice: Number(evt.target.value)
+    });
+
+  };
+
+  #offerChangeHandler = (evt) => {
+    evt.preventDefault();
+
+    this._setState({
+      offerGroups: this._state.offerGroups.map((offerGroup) => ({
+        ...offerGroup,
+        offers: offerGroup.offers.map((offer) => ({
+          ...offer,
+          isSelected: offer.id === evt.target.dataset.offerId ? !offer.isSelected : offer.isSelected
+        }))
+      })),
     });
   };
 
@@ -143,7 +174,6 @@ export default class PointEditView extends AbstractStatefulView {
       },
     );
   }
-
 
   static parsePointToState(point) {
     return {...point};
@@ -305,7 +335,7 @@ function getBasePrice(basePrice){
         €
       </label>
       <input class="event__input  event__input--price"
-        id="event-price-1" type="text" name="event-price"
+        id="event-price-1" type="number" name="event-price"
         value=${basePrice}>
       </div>
   `;
@@ -353,9 +383,14 @@ function getOffersList(offerGroups){
 
 function getOffers(offers){
   const offersStrings = offers?.map((offer) => /*html*/`
-  <div class="event__offer-selector">
-    <input class="event__offer-checkbox  visually-hidden"
-      id="event-offer-${offer.title}-1" type="checkbox" name="event-offer-${offer.title}"
+  <div 
+    class="event__offer-selector">
+    <input 
+      class="event__offer-checkbox  visually-hidden"
+      id="event-offer-${offer.title}-1" 
+      type="checkbox" 
+      name="event-offer-${offer.title}"
+      data-offer-id = ${offer.id}
       ${offer.isSelected ? 'checked' : ''}>
     <label class="event__offer-label" for="event-offer-${offer.title}-1">
       <span class="event__offer-title">${offer.title}</span>
